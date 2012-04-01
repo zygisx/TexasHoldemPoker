@@ -23,5 +23,14 @@ namespace PokerClient
         {
             InitializeComponent();
         }
+
+        private void ConnectToServer(object sender, RoutedEventArgs e)
+        {
+            Client client = new Client();
+            client.ConnectToServer(ipTextBox.Text, Convert.ToInt32(portTextBox.Text), nickTextBox.Text);
+            new GameWindow(client).Show();
+            this.Hide();
+
+        }
     }
 }
