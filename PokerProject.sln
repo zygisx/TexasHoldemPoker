@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerServer", "PokerServer\PokerServer.csproj", "{258E4B86-07D3-464C-B8D1-F1E0789D9423}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerClient", "PokerClient\PokerClient.csproj", "{B66ED37F-69BD-441B-A709-F204F134A257}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,6 +15,10 @@ Global
 		{258E4B86-07D3-464C-B8D1-F1E0789D9423}.Debug|x86.Build.0 = Debug|x86
 		{258E4B86-07D3-464C-B8D1-F1E0789D9423}.Release|x86.ActiveCfg = Release|x86
 		{258E4B86-07D3-464C-B8D1-F1E0789D9423}.Release|x86.Build.0 = Release|x86
+		{B66ED37F-69BD-441B-A709-F204F134A257}.Debug|x86.ActiveCfg = Debug|x86
+		{B66ED37F-69BD-441B-A709-F204F134A257}.Debug|x86.Build.0 = Debug|x86
+		{B66ED37F-69BD-441B-A709-F204F134A257}.Release|x86.ActiveCfg = Release|x86
+		{B66ED37F-69BD-441B-A709-F204F134A257}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -205,7 +205,7 @@ namespace PokerServer
                 string data = Encoding.Default.GetString(buffer, 0, read);
 
                 //do the job with the data here
-                //send the data back to client.
+                //send the data back to  [ALL] client.
                 Byte[] sendBytes = Encoding.ASCII.GetBytes(this.Name + " Processed " + data);
                 networkStream.Write(sendBytes, 0, sendBytes.Length);
                 networkStream.Flush();
