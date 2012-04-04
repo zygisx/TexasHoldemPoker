@@ -4,4 +4,4 @@ obj/
 *.dll
 
 # Just for now
-PokerServer/
+PokerServer/*

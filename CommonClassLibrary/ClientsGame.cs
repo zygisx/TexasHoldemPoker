@@ -47,12 +47,15 @@ namespace CommonClassLibrary
         {
             int i = 0;
             while (i < 8)
+            {
                 if (players[i] != null &&
                     players[i].Name == name)
                 {
                     players[i] = null;
                     break;
                 }
+                i++;
+            }
         }
                     
 
@@ -70,6 +73,7 @@ namespace CommonClassLibrary
     public class PlayersCollection
     {
         private Player[] players = new Player[8];
+
 
         public Player this[int index]
         {
@@ -93,10 +97,46 @@ namespace CommonClassLibrary
             set;
         }
 
-        public Player(string name)
+        public int Ammount
+        {
+            get;
+            private set;
+        }
+        private int raiseValue;
+
+        public Player(string name, int ammount)
         {
             this.Name = name;
+            this.Ammount = ammount;
         }
+
+        public bool Reduce(int ammount)
+        {
+            if (this.Ammount >= ammount)
+            {
+                this.Ammount -= ammount;
+                return true;
+            }
+            else return false;
+        }
+
+        public bool Increase(int ammount)
+        {
+            this.Ammount += ammount;
+            // return value bool just in case if in future some restrictions will be added
+            return true;
+        }
+
+        public bool SetRaiseValue(int ammount)
+        {
+            if (this.raiseValue <= ammount)
+            {
+                this.raiseValue = ammount;
+                return true;
+            }
+            else return false;
+        }
+            
 
     }
 
