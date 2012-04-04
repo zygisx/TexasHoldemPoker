@@ -3,12 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="GameWindow" Height="349" Width="564" Closing="ClosingWindow">
     <Grid>
-        <Label Content="" Height="28" HorizontalAlignment="Left" Margin="26,19,0,0" Name="player1" VerticalAlignment="Top" Width="77" />
-        <Label Content="" Height="28" HorizontalAlignment="Left" Margin="109,19,0,0" Name="player2" VerticalAlignment="Top" Width="95" />
-        <Label Content="" Height="28" HorizontalAlignment="Left" Margin="210,19,0,0" Name="player3" VerticalAlignment="Top" Width="85" />
-        <Label Content="" Height="28" HorizontalAlignment="Right" Margin="0,19,149,0" Name="player4" VerticalAlignment="Top" Width="92" />
+        <Label Content="" Height="28" HorizontalAlignment="Left" Margin="216,12,0,0" Name="player1" VerticalAlignment="Top" Width="95" />
+        <Label Content="" Height="28" HorizontalAlignment="Left" Margin="79,51,0,0" Name="player2" VerticalAlignment="Top" Width="95" />
+        <Label Content="" Height="28" HorizontalAlignment="Left" Margin="356,51,0,0" Name="player3" VerticalAlignment="Top" Width="95" />
+        <Label Content="" Height="28" HorizontalAlignment="Right" Margin="0,127,368,0" Name="player4" VerticalAlignment="Top" Width="95" />
         <Button Content="Fold" Height="46" HorizontalAlignment="Right" Margin="0,252,12,0" Name="foldButton" VerticalAlignment="Top" Width="105" Click="Fold" />
         <Button Content="Check" Height="46" HorizontalAlignment="Left" Margin="314,252,0,0" Name="checkButton" VerticalAlignment="Top" Width="105" Click="Check" />
         <TextBox Height="104" HorizontalAlignment="Left" Margin="14,195,0,0" Name="logText" VerticalAlignment="Top" Width="168" />
+        <Label Content="" Height="26" HorizontalAlignment="Left" Margin="80,78,0,0" Name="playerCash2" VerticalAlignment="Top" Width="45" />
+        <Label Content="" Height="26" HorizontalAlignment="Left" Margin="80,153,0,0" Name="playerCash4" VerticalAlignment="Top" Width="45" />
+        <Label Content="" Height="26" HorizontalAlignment="Left" Margin="216,38,0,0" Name="playerCash1" VerticalAlignment="Top" Width="45" />
+        <Label Content="" Height="26" HorizontalAlignment="Left" Margin="356,78,0,0" Name="playerCash3" VerticalAlignment="Top" Width="45" />
     </Grid>
 </Window>

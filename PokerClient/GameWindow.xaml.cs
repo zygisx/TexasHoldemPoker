@@ -43,10 +43,26 @@ namespace PokerClient
         }
 
         public void UpdateGame() {
-            if (Game.Players[0] != null) SetLabelText(this.player1, Game.Players[0].Name);
-            if (Game.Players[1] != null) SetLabelText(this.player2, Game.Players[1].Name);
-            if (Game.Players[2] != null) SetLabelText(this.player3, Game.Players[2].Name);
-            if (Game.Players[3] != null) SetLabelText(this.player4, Game.Players[3].Name);
+            if (Game.Players[0] != null)
+            {
+                SetLabelText(this.player1, Game.Players[0].Name);
+                SetLabelText(this.playerCash1, Game.Players[0].Ammount.ToString());
+            }
+            if (Game.Players[1] != null)
+            {
+                SetLabelText(this.player2, Game.Players[1].Name);
+                SetLabelText(this.playerCash2, Game.Players[1].Ammount.ToString());
+            }
+            if (Game.Players[2] != null)
+            {
+                SetLabelText(this.player3, Game.Players[2].Name);
+                SetLabelText(this.playerCash3, Game.Players[2].Ammount.ToString());
+            }
+            if (Game.Players[3] != null)
+            {
+                SetLabelText(this.player4, Game.Players[3].Name);
+                SetLabelText(this.playerCash4, Game.Players[3].Ammount.ToString());
+            }
         }
 
         public void SetLabelText(Label lbl, string text)

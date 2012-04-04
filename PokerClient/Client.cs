@@ -59,7 +59,7 @@ namespace PokerClient
                 int read = serverStream.EndRead(result);
                 if (read == 0)
                 {
-                    //serverStream.Close();
+                    serverStream.Close();
                     return;
                 }
                 
