@@ -2,3 +2,6 @@
 bin/
 obj/
 *.dll
+
+# Just for now
+PokerServer/
