@@ -55,6 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="CardsDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GameWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -105,6 +109,165 @@
       <Project>{9A67B73A-51D0-4BCB-8144-95E44A6D5E13}</Project>
       <Name>CommonClassLibrary</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ClubEight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ClubFive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ClubFour.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ClubJack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ClubKing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ClubNine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ClubQueen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ClubSeven.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ClubSix.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ClubTen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ClubThree.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ClubTwo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DiamondAce.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DiamondEight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DiamondFive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DiamondFour.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DiamondJack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DiamondKing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DiamondNine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DiamondQueen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DiamondSeven.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DiamondSix.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DiamondTen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DiamondThree.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DiamondTwo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\HeartAce.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\HeartEight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\HeartFive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\HeartFour.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\HeartJack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\HeartKing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\HeartNine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\HeartQueen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\HeartSeven.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\HeartSix.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\HeartTen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\HeartThree.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\HeartTwo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SpadeAce.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SpadeEight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SpadeFive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SpadeFour.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SpadeJack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SpadeKing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SpadeNine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SpadeQueen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SpadeSeven.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SpadeSix.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SpadeTen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SpadeThree.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SpadeTwo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\CardBack_Blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\CardBack_Red.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

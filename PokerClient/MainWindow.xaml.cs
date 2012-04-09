@@ -12,6 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using CommonClassLibrary;
+
 namespace PokerClient
 {
     /// <summary>
@@ -27,10 +29,25 @@ namespace PokerClient
         private void ConnectToServer(object sender, RoutedEventArgs e)
         {
             Client client = new Client();
-            client.ConnectToServer(ipTextBox.Text, Convert.ToInt32(portTextBox.Text), nickTextBox.Text);
-
-            new GameWindow(client).Show();
+            if (!client.ConnectToServer(ipTextBox.Text, Convert.ToInt32(portTextBox.Text), nickTextBox.Text))
+            {
+                switch (client.ConnectionState)
+                {
+                    case State.NICK_USED:
+                        this.FailedToConnect();
+                        return;
+                    case State.ROOM_FULL:
+                        //TODO implement sys message
+                        return;
+                }
+            }
+            new GameWindow(this, client).Show();
             this.Hide();
+        }
+
+        private void FailedToConnect()
+        {
+            //TODO implement info message for user name
         }
     }
 }

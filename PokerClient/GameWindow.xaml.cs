@@ -20,8 +20,11 @@ namespace PokerClient
     /// </summary>
     public partial class GameWindow : Window
     {
+        public const int PLAYERS = 6;
 
         private Client client;
+        private MainWindow parentWindow;
+        private PlayersComponents[] components;
         //private ClientsGame game;
 
         public ClientsGame Game
@@ -30,45 +33,31 @@ namespace PokerClient
             set;
         }
 
-        public GameWindow (Client client)
+        public GameWindow (MainWindow parent, Client client)
         {
             InitializeComponent();
-            System.Console.WriteLine(client == null);
+            this.parentWindow = parent;
             this.client = client;
             this.client.Window = this;
+
+            // add components to array
+            this.createComponentsArray();
+            
             
             client.WaitForDataReceive();
-           // Game = new ClientsGame();
-            System.Console.WriteLine("this");
+            // Game = new ClientsGame();
         }
+
+        
 
         public void UpdateGame() {
-            if (Game.Players[0] != null)
-            {
-                SetLabelText(this.player1, Game.Players[0].Name);
-                SetLabelText(this.playerCash1, Game.Players[0].Ammount.ToString());
-            }
-            if (Game.Players[1] != null)
-            {
-                SetLabelText(this.player2, Game.Players[1].Name);
-                SetLabelText(this.playerCash2, Game.Players[1].Ammount.ToString());
-            }
-            if (Game.Players[2] != null)
-            {
-                SetLabelText(this.player3, Game.Players[2].Name);
-                SetLabelText(this.playerCash3, Game.Players[2].Ammount.ToString());
-            }
-            if (Game.Players[3] != null)
-            {
-                SetLabelText(this.player4, Game.Players[3].Name);
-                SetLabelText(this.playerCash4, Game.Players[3].Ammount.ToString());
-            }
+
+            // update player labels 
+            this.updatePlayerLabels();
+            this.markActivePlayer();
+
         }
 
-        public void SetLabelText(Label lbl, string text)
-        {
-            lbl.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, (System.Action)delegate() { lbl.Content = text; });
-        }
        
 
         public void PutLogMessage(string text)
@@ -97,10 +86,107 @@ namespace PokerClient
             Game.ActionMade = CommonClassLibrary.Action.FOLD;
             this.client.SendGame();
         }
+        private void Raise(object sender, RoutedEventArgs e)
+        {
+            Game.ActionMade = CommonClassLibrary.Action.RAISE;
+            this.client.SendGame();
+        }
+
+
+        public void Disconnect() {
+            this.client.CloseConnection();
+            this.Hide();
+            this.parentWindow.Show();
+            }
  
         private void ClosingWindow(object sender, System.ComponentModel.CancelEventArgs e)
         {
             this.client.CloseConnection();
         }
+
+        private void createComponentsArray()
+        {
+            this.components = new PlayersComponents[PLAYERS];
+            for (int i = 0; i < PLAYERS; i++)
+                this.components[i] = new PlayersComponents();
+            this.components[0].Namelbl = player1;
+            this.components[1].Namelbl = player2;
+            this.components[2].Namelbl = player3;
+            this.components[3].Namelbl = player4;
+            this.components[4].Namelbl = player5;
+            this.components[5].Namelbl = player6;
+
+            this.components[0].Cashlbl = playerCash1;
+            this.components[1].Cashlbl = playerCash2;
+            this.components[2].Cashlbl = playerCash3;
+            this.components[3].Cashlbl = playerCash4;
+            this.components[4].Cashlbl = playerCash5;
+            this.components[5].Cashlbl = playerCash6;
+        }
+
+
+        // Design things
+        private void updatePlayerLabels()
+        {
+            for (int i = 0; i < PLAYERS; i++)
+            {
+                string name, cash;
+                if (Game.Players[i] == null)
+                {
+                    name = ""; cash = "";
+                } else {
+                    name = Game.Players[i].Name;
+                    cash = Game.Players[i].Ammount.ToString();
+                }
+                this.components[i].Namelbl.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, (System.Action)delegate()
+                {
+                    this.components[i].Namelbl.Content = name;
+                });
+                this.components[i].Namelbl.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, (System.Action)delegate()
+                {
+                    this.components[i].Namelbl.Background = Brushes.Transparent;
+                });
+                this.components[i].Cashlbl.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, (System.Action)delegate()
+                {
+                    this.components[i].Cashlbl.Content = cash;
+                });
+            }
+        }
+
+        private void SetLabelText(Label lbl, string text)
+        {
+            lbl.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, (System.Action)delegate() { lbl.Content = text; });
+        }
+
+        private void markActivePlayer()
+        {
+            if (Game.ActivePlayer != -1 && Game.Players[Game.ActivePlayer] != null)
+            {
+                this.components[Game.ActivePlayer].Namelbl.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, (System.Action)delegate()
+                {
+                    this.components[Game.ActivePlayer].Namelbl.Background = Brushes.RoyalBlue;
+                });
+            }
+        }
+                
+
     }
+
+
+    class PlayersComponents
+    {
+
+        public Label Namelbl
+        {
+            get;
+            set;
+        }
+        public Label Cashlbl
+        {
+            get;
+            set;
+        }
+    }
+
+
 }

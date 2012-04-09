@@ -5,6 +5,8 @@ using System.Text;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Threading;
+
 using CommonClassLibrary;
 
 
@@ -13,10 +15,17 @@ namespace PokerClient
 {
     public class Client
     {
-
+        public const string REFUSE_STRING = "false";
         
         private TcpClient clientSocket = new TcpClient();
+        private ManualResetEvent allDone = new ManualResetEvent(false);
         private NetworkStream serverStream;
+
+        public State ConnectionState
+        {
+            get;
+            private set;
+        }
 
         public GameWindow Window
         {
@@ -28,12 +37,16 @@ namespace PokerClient
         {
         }
 
-        public void ConnectToServer(string ip, int port, string nick)
+        public bool ConnectToServer(string ip, int port, string nick)
         {
             if (string.IsNullOrEmpty(nick))
-                return;
+                return false;
             this.clientSocket.Connect(ip, port);
+            allDone.Reset();
             this.SendData(nick);
+            this.WaitForNickConfirm();
+            if (this.ConnectionState == State.OK) return true;
+            else return false;
 
             // Wait for game data
         }
@@ -43,14 +56,16 @@ namespace PokerClient
             clientSocket.Close();
         }
 
-        public void WaitForDataReceive()
+        public void WaitForNickConfirm()
         {
-            byte[] buffer = new byte[1024];
+            
+            byte[] buffer = new byte[256];
             serverStream = clientSocket.GetStream();
-            serverStream.BeginRead(buffer, 0, buffer.Length, ReadCallback, buffer);
+            serverStream.BeginRead(buffer, 0, buffer.Length, NickConfirmCallBack, buffer);
+            this.allDone.WaitOne();
         }
 
-        public void ReadCallback(IAsyncResult result)
+        public void NickConfirmCallBack(IAsyncResult result)
         {
             NetworkStream serverStream = clientSocket.GetStream();
             MemoryStream memStream = new MemoryStream();
@@ -62,33 +77,24 @@ namespace PokerClient
                     serverStream.Close();
                     return;
                 }
-                
-                // get result from network streaM
+                // get result from network stream
                 byte[] buffer = result.AsyncState as byte[];
                 memStream.Write(buffer, 0, read);
                 memStream.Position = 0;
 
                 // Deserialization
                 BinaryFormatter bf = new BinaryFormatter();
-                ClientsGame game = (ClientsGame)bf.Deserialize(memStream);
-                
-                // Game stuff
-                System.Console.WriteLine("Stuff");
-                Window.Game = game;
-                Window.UpdateGame();
-                Window.PutLogMessage(game.ActionMade.ToString());
-                
-
-                // and again wait for game data
-                this.WaitForDataReceive();
+                this.ConnectionState = (State)bf.Deserialize(memStream);
             }
             catch (Exception ex)
             {
                 System.Console.WriteLine(ex);
                 Window.PutLogMessage("ERROR: " + ex);
             }
-
-            
+            finally
+            {
+                allDone.Set();
+            }
         }
 
         public void SendGame()
@@ -123,6 +129,53 @@ namespace PokerClient
             serverStream.Write(outStream, 0, outStream.Length);
             serverStream.Flush();
             //WaitForDataReceive();
+        }
+
+        public void WaitForDataReceive()
+        {
+            byte[] buffer = new byte[1024];
+            serverStream = clientSocket.GetStream();
+            serverStream.BeginRead(buffer, 0, buffer.Length, ReadCallback, buffer);
+        }
+
+        public void ReadCallback(IAsyncResult result)
+        {
+            NetworkStream serverStream = clientSocket.GetStream();
+            MemoryStream memStream = new MemoryStream();
+            try
+            {
+                int read = serverStream.EndRead(result);
+                if (read == 0)
+                {
+                    serverStream.Close();
+                    return;
+                }
+                
+                // get result from network streaM
+                byte[] buffer = result.AsyncState as byte[];
+                memStream.Write(buffer, 0, read);
+                memStream.Position = 0;
+
+                // Deserialization
+                BinaryFormatter bf = new BinaryFormatter();
+                ClientsGame game = (ClientsGame)bf.Deserialize(memStream);
+                
+                // Game stuff
+                Window.Game = game;
+                Window.UpdateGame();
+                Window.PutLogMessage(game.ActionMade.ToString());
+                
+
+                // and again wait for game data
+                this.WaitForDataReceive();
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine(ex);
+                Window.PutLogMessage("ERROR: " + ex);
+            }
+
+            
         }
 
     }

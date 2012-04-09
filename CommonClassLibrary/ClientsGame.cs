@@ -10,6 +10,7 @@ namespace CommonClassLibrary
     {
 
         private PlayersCollection players;
+        
         public PlayersCollection Players
         {
             get
@@ -22,7 +23,19 @@ namespace CommonClassLibrary
             }
         }
 
+        public int CurrentPlayer
+        {
+            get;
+            set;
+        }
+
         public Action ActionMade
+        {
+            get;
+            set;
+        }
+
+        public int ActivePlayer
         {
             get;
             set;
@@ -94,7 +107,7 @@ namespace CommonClassLibrary
         public string Name
         {
             get;
-            set;
+            private set;
         }
 
         public int Ammount
@@ -102,6 +115,21 @@ namespace CommonClassLibrary
             get;
             private set;
         }
+
+        public Card Card1
+        {
+            get;
+            private set;
+        }
+
+        public Card Card2
+        {
+            get;
+            private set;
+        }
+
+
+
         private int raiseValue;
 
         public Player(string name, int ammount)
@@ -147,6 +175,13 @@ namespace CommonClassLibrary
         CHECK,
         FOLD,
         RAISE,
+    }
+    [Serializable]
+    public enum State
+    {
+        OK,
+        NICK_USED,
+        ROOM_FULL,
     }
 
 
