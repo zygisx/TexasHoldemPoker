@@ -38,6 +38,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -95,7 +96,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
@@ -264,10 +265,13 @@
     <Resource Include="Images\SpadeTwo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\CardBack_Blue.png" />
+    <Resource Include="Images\CardBack_Red.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\CardBack_Red.png" />
+    <Resource Include="Images\FaceDownBlue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ClubAce.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

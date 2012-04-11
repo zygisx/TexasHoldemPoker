@@ -3,6 +3,66 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="PokerClient.GameWindow"
         Title="GameWindow" Height="582" Width="801.5" Closing="ClosingWindow">
+    <Window.Resources>
+        <BitmapImage x:Key="NN" UriSource="/PokerClient;component/Images/FaceDownBlue.png" />
+        
+        <BitmapImage x:Key="DAce" UriSource="/PokerClient;component/Images/DiamondAce.png" />
+        <BitmapImage x:Key="DTwo" UriSource="/PokerClient;component/Images/DiamondTwo.png" />
+        <BitmapImage x:Key="DThree" UriSource="/PokerClient;component/Images/DiamondThree.png" />
+        <BitmapImage x:Key="DFour" UriSource="/PokerClient;component/Images/DiamondFour.png" />
+        <BitmapImage x:Key="DFive" UriSource="/PokerClient;component/Images/DiamondFive.png" />
+        <BitmapImage x:Key="DSix" UriSource="/PokerClient;component/Images/DiamondSix.png" />
+        <BitmapImage x:Key="DSeven" UriSource="/PokerClient;component/Images/DiamondSeven.png" />
+        <BitmapImage x:Key="DEight" UriSource="/PokerClient;component/Images/DiamondEight.png" />
+        <BitmapImage x:Key="DNine" UriSource="/PokerClient;component/Images/DiamondNine.png" />
+        <BitmapImage x:Key="DTen" UriSource="/PokerClient;component/Images/DiamondTen.png" />
+        <BitmapImage x:Key="DJack" UriSource="/PokerClient;component/Images/DiamondJack.png" />
+        <BitmapImage x:Key="DQueen" UriSource="/PokerClient;component/Images/DiamondQueen.png" />
+        <BitmapImage x:Key="DKing" UriSource="/PokerClient;component/Images/DiamondKing.png" />
+
+        <BitmapImage x:Key="HAce" UriSource="/PokerClient;component/Images/HeartAce.png" />
+        <BitmapImage x:Key="HTwo" UriSource="/PokerClient;component/Images/HeartTwo.png" />
+        <BitmapImage x:Key="HThree" UriSource="/PokerClient;component/Images/HeartThree.png" />
+        <BitmapImage x:Key="HFour" UriSource="/PokerClient;component/Images/HeartFour.png" />
+        <BitmapImage x:Key="HFive" UriSource="/PokerClient;component/Images/HeartFive.png" />
+        <BitmapImage x:Key="HSix" UriSource="/PokerClient;component/Images/HeartSix.png" />
+        <BitmapImage x:Key="HSeven" UriSource="/PokerClient;component/Images/HeartSeven.png" />
+        <BitmapImage x:Key="HEight" UriSource="/PokerClient;component/Images/HeartEight.png" />
+        <BitmapImage x:Key="HNine" UriSource="/PokerClient;component/Images/HeartNine.png" />
+        <BitmapImage x:Key="HTen" UriSource="/PokerClient;component/Images/HeartTen.png" />
+        <BitmapImage x:Key="HJack" UriSource="/PokerClient;component/Images/HeartJack.png" />
+        <BitmapImage x:Key="HQueen" UriSource="/PokerClient;component/Images/HeartQueen.png" />
+        <BitmapImage x:Key="HKing" UriSource="/PokerClient;component/Images/HeartKing.png" />
+
+        <BitmapImage x:Key="CAce" UriSource="/PokerClient;component/Images/ClubAce.png" />
+        <BitmapImage x:Key="CTwo" UriSource="/PokerClient;component/Images/ClubTwo.png" />
+        <BitmapImage x:Key="CThree" UriSource="/PokerClient;component/Images/ClubThree.png" />
+        <BitmapImage x:Key="CFour" UriSource="/PokerClient;component/Images/ClubFour.png" />
+        <BitmapImage x:Key="CFive" UriSource="/PokerClient;component/Images/ClubFive.png" />
+        <BitmapImage x:Key="CSix" UriSource="/PokerClient;component/Images/ClubSix.png" />
+        <BitmapImage x:Key="CSeven" UriSource="/PokerClient;component/Images/ClubSeven.png" />
+        <BitmapImage x:Key="CEight" UriSource="/PokerClient;component/Images/ClubEight.png" />
+        <BitmapImage x:Key="CNine" UriSource="/PokerClient;component/Images/ClubNine.png" />
+        <BitmapImage x:Key="CTen" UriSource="/PokerClient;component/Images/ClubTen.png" />
+        <BitmapImage x:Key="CJack" UriSource="/PokerClient;component/Images/ClubJack.png" />
+        <BitmapImage x:Key="CQueen" UriSource="/PokerClient;component/Images/ClubQueen.png" />
+        <BitmapImage x:Key="CKing" UriSource="/PokerClient;component/Images/ClubKing.png" />
+
+        <BitmapImage x:Key="SAce" UriSource="/PokerClient;component/Images/SpadeAce.png" />
+        <BitmapImage x:Key="STwo" UriSource="/PokerClient;component/Images/SpadeTwo.png" />
+        <BitmapImage x:Key="SThree" UriSource="/PokerClient;component/Images/SpadeThree.png" />
+        <BitmapImage x:Key="SFour" UriSource="/PokerClient;component/Images/SpadeFour.png" />
+        <BitmapImage x:Key="SFive" UriSource="/PokerClient;component/Images/SpadeFive.png" />
+        <BitmapImage x:Key="SSix" UriSource="/PokerClient;component/Images/SpadeSix.png" />
+        <BitmapImage x:Key="SSeven" UriSource="/PokerClient;component/Images/SpadeSeven.png" />
+        <BitmapImage x:Key="SEight" UriSource="/PokerClient;component/Images/SpadeEight.png" />
+        <BitmapImage x:Key="SNine" UriSource="/PokerClient;component/Images/SpadeNine.png" />
+        <BitmapImage x:Key="STen" UriSource="/PokerClient;component/Images/SpadeTen.png" />
+        <BitmapImage x:Key="SJack" UriSource="/PokerClient;component/Images/SpadeJack.png" />
+        <BitmapImage x:Key="SQueen" UriSource="/PokerClient;component/Images/SpadeQueen.png" />
+        <BitmapImage x:Key="SKing" UriSource="/PokerClient;component/Images/SpadeKing.png" />
+
+    </Window.Resources>
     <Grid Background="#FF055403">
         <Button Content="Fold" Height="46" HorizontalAlignment="Right" Margin="0,490,8,0" x:Name="foldButton" VerticalAlignment="Top" Width="105" Click="Fold" />
         <Button Content="Check" Height="46" HorizontalAlignment="Left" Margin="563.5,490,0,0" x:Name="checkButton" VerticalAlignment="Top" Width="105" Click="Check" />
@@ -25,19 +85,20 @@
         		<TransformGroup>
         			<ScaleTransform/>
         			<SkewTransform/>
-        			<RotateTransform Angle="0.049"/>
+        			<RotateTransform Angle="0.0"/>
         			<TranslateTransform/>
         		</TransformGroup>
         	</Rectangle.RenderTransform>
         </Rectangle>
-        <Image Height="43" HorizontalAlignment="Left" Margin="156,61,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="/PokerClient;component/Images/DiamondAce.png" />
-        <Image Height="43" HorizontalAlignment="Left" Margin="117,61,0,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="/PokerClient;component/Images/ClubEight.png" />
-        <Image Height="43" HorizontalAlignment="Left" Margin="141,199,0,0" x:Name="image3" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="/PokerClient;component/Images/DiamondAce.png" />
-        <Image Height="43" HorizontalAlignment="Left" Margin="102,199,0,0" x:Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="/PokerClient;component/Images/ClubEight.png" />
-        <Image Height="43" HorizontalAlignment="Left" Margin="335,181,0,0" x:Name="tamleCard1" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="/PokerClient;component/Images/DiamondAce.png" Visibility="Hidden" />
-        <Image Height="43" HorizontalAlignment="Left" Margin="296,181,0,0" x:Name="tamleCard2" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="/PokerClient;component/Images/ClubEight.png" Visibility="Hidden" />
-        <Image Height="43" HorizontalAlignment="Right" Margin="0,181,337.5,0" x:Name="tamleCard3" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="/PokerClient;component/Images/DiamondAce.png" Visibility="Hidden" />
-        <Image Height="43" Margin="374,181,376.5,0" x:Name="tamleCard4" Stretch="Fill" VerticalAlignment="Top" Source="/PokerClient;component/Images/ClubEight.png" Visibility="Hidden" />
-		<Image Height="43" Margin="0,181,296,0" x:Name="tamleCard5" Stretch="Fill" VerticalAlignment="Top" Source="/PokerClient;component/Images/ClubEight.png" HorizontalAlignment="Right" Width="35" Visibility="Hidden" />
+        <Image Height="43" HorizontalAlignment="Left" Margin="156,61,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" />
+        <Image Height="43" HorizontalAlignment="Left" Margin="117,61,0,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource DThree}" />
+        <Image Height="43" HorizontalAlignment="Left" Margin="141,199,0,0" x:Name="image3" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" />
+        <Image Height="43" HorizontalAlignment="Left" Margin="102,199,0,0" x:Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" />
+        <Image Height="43" HorizontalAlignment="Left" Margin="335,181,0,0" x:Name="tamleCard1" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource HQueen}" Visibility="Hidden" />
+        <Image Height="43" HorizontalAlignment="Left" Margin="296,181,0,0" x:Name="tamleCard2" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" Visibility="Hidden" />
+        <Image Height="43" HorizontalAlignment="Right" Margin="0,181,337.5,0" x:Name="tamleCard3" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" Visibility="Hidden" />
+        <Image Height="43" Margin="374,181,376.5,0" x:Name="tamleCard4" Stretch="Fill" VerticalAlignment="Top" Source="{StaticResource NN}" Visibility="Hidden" />
+        <Image Height="43" Margin="0,181,296,0" x:Name="tamleCard5" Stretch="Fill" VerticalAlignment="Top" Source="{StaticResource NN}" HorizontalAlignment="Right" Width="35" Visibility="Hidden" />
+		
     </Grid>
 </Window>

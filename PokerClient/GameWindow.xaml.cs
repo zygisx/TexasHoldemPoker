@@ -55,6 +55,14 @@ namespace PokerClient
             // update player labels 
             this.updatePlayerLabels();
             this.markActivePlayer();
+            
+            this.Dispatcher.BeginInvoke(
+            (System.Action)delegate()
+            {
+                this.image1.Source = this.Resources["DA"] as ImageSource;
+            });
+            
+            
 
         }
 
@@ -79,6 +87,7 @@ namespace PokerClient
         {
             Game.ActionMade = CommonClassLibrary.Action.CHECK;
             this.client.SendGame();
+          
         }
 
         private void Fold(object sender, RoutedEventArgs e)
@@ -122,6 +131,24 @@ namespace PokerClient
             this.components[3].Cashlbl = playerCash4;
             this.components[4].Cashlbl = playerCash5;
             this.components[5].Cashlbl = playerCash6;
+
+            this.components[0].Card1 = image1;
+            this.components[0].Card2 = image2;
+            this.components[1].Card1 = image3;
+            this.components[1].Card2 = image4;
+            
+            //TODO add other cards
+            //this.components[2].Card1 = image5;
+            //this.components[2].Card2 = image6;
+            //this.components[3].Card1 = image7;
+            //this.components[3].Card2 = image2;
+            //this.components[4].Card1 = image1;
+            //this.components[4].Card2 = image2;
+            //this.components[5].Card1 = image1;
+            //this.components[5].Card2 = image2;
+            //this.components[6].Card1 = image1;
+            //this.components[6].Card2 = image2;
+
         }
 
 
@@ -182,6 +209,18 @@ namespace PokerClient
             set;
         }
         public Label Cashlbl
+        {
+            get;
+            set;
+        }
+
+        public Image Card1
+        {
+            get;
+            set;
+        }
+
+        public Image Card2
         {
             get;
             set;
