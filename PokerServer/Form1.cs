@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.Serialization.Formatters.Binary;
+using PokerServer.Logic;
 
 namespace PokerServer
 {
@@ -18,6 +20,12 @@ namespace PokerServer
         private ManualResetEvent allDone = new ManualResetEvent(false);
         private static TcpListener listener;
         private static List<ClientCommunication> queue;
+
+        public ClientGame Game
+        {
+            get;
+            set;
+        }
 
         /* properties */
         public ManualResetEvent AllDone
@@ -64,9 +72,13 @@ namespace PokerServer
         // Network 
         public void RunServer()
         {
+            // create game
+            Game = new ClientGame();
+
+
             //todo check IP
             IPAddress localIPAddress = IPAddress.Parse("127.0.0.1");
-            IPEndPoint ipLocal = new IPEndPoint(localIPAddress, 8000);
+            IPEndPoint ipLocal = new IPEndPoint(localIPAddress, 8888);
 
             listener = new TcpListener(ipLocal);
             listener.Start();
@@ -81,7 +93,7 @@ namespace PokerServer
                 if (queue.Count == 0)
                 {
                     Thread.Sleep(1000);
-                    //parent.PutMessage("0 users");
+                    PutLogMessage("0 users");
                     continue;
                 }
                 //todo change
@@ -116,10 +128,13 @@ namespace PokerServer
                 ClientCommunication client = new ClientCommunication(this, clientSocket);
 
                 client.StartClient();
-
                 queue.Add(client);
-
                 PutLogMessage(client.Name + " connected");
+
+                // add player to game
+                Game.players[0] = new Player(client.Name);
+                //client.SendGame();
+                client.SendData("Connected succesfully");
             }
             catch (Exception se)
             {
@@ -132,6 +147,7 @@ namespace PokerServer
         public void Disconnected(ClientCommunication client)
         {
             //PutLogMessage("Was: " + queue.Count);
+            PutLogMessage(client.Name + " disconnected");
             queue.Remove(client);
             //PutLogMessage("IS: " + queue.Count);
         }
@@ -160,7 +176,7 @@ namespace PokerServer
         public void StartClient()
         {
             networkStream = clientSocket.GetStream();
-            // WaitForRequest();
+            //WaitForRequest();
 
 
             // get name
@@ -172,15 +188,16 @@ namespace PokerServer
 
         public void WaitForRequest()
         {
-            if (! IsConnected())
+            if ((clientSocket == null) || (! IsConnected()))
             {
                 main.PutLogMessage(this.Name + " disconnected");
                 main.Disconnected(this);
+                
                 return;
             }
 
-            byte[] buffer = new byte[clientSocket.ReceiveBufferSize];
-
+            //byte[] buffer = new byte[clientSocket.ReceiveBufferSize];
+            byte[] buffer = new byte[1024];
 
             networkStream.BeginRead(buffer, 0, buffer.Length, ReadCallback, buffer);
             main.AllDone.WaitOne();
@@ -206,13 +223,20 @@ namespace PokerServer
 
                 //do the job with the data here
                 //send the data back to  [ALL] client.
-                Byte[] sendBytes = Encoding.ASCII.GetBytes(this.Name + " Processed " + data);
-                networkStream.Write(sendBytes, 0, sendBytes.Length);
-                networkStream.Flush();
+
+                // uncommented
+                //Byte[] sendBytes = Encoding.ASCII.GetBytes(this.Name + " Processed " + data);
+                //networkStream.Write(sendBytes, 0, sendBytes.Length);
+                //BinaryFormatter bf = new BinaryFormatter();
+                //bf.Serialize(networkStream, main.Game);
+
+                //networkStream.Flush();
 
                 main.PutLogMessage(this.Name + " Received: " + data);
-
+                //SendGame();
+                SendData("Data received");
                 main.AllDone.Set();
+                this.WaitForRequest();
             }
             catch (Exception ex)
             {
@@ -221,7 +245,30 @@ namespace PokerServer
                 main.AllDone.Set();
             }
 
-            //this.WaitForRequest();
+            
+        }
+
+        public void SendGame()
+        {
+            NetworkStream networkStream = clientSocket.GetStream();
+            try
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                bf.Serialize(networkStream, main.Game);
+            }
+            catch (Exception ex)
+            {
+                main.PutLogMessage(ex.ToString());
+            }
+        }
+
+        public void SendData(string data)
+        {
+            NetworkStream networkStream = clientSocket.GetStream();
+            Byte[] sendBytes = Encoding.ASCII.GetBytes(data);
+            networkStream.Write(sendBytes, 0, sendBytes.Length);
+            networkStream.Flush();
+           
         }
 
         public bool IsConnected()
