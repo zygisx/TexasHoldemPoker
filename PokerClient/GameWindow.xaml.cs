@@ -52,14 +52,16 @@ namespace PokerClient
 
         public void UpdateGame() {
 
-            // update player labels 
-            this.updatePlayerLabels();
-            this.markActivePlayer();
-            
-            this.Dispatcher.BeginInvoke(
-            (System.Action)delegate()
+            // invoke to acces ui from  non ui thread
+            this.Dispatcher.BeginInvoke( (System.Action)delegate()
             {
-                this.image1.Source = this.Resources["DA"] as ImageSource;
+                // update player labels 
+                this.updatePlayerLabels();
+                this.markActivePlayer();
+                this.updateCards();
+                //this.image1.Source = this.Resources["DA"] as ImageSource;
+                //if (this.Game.Players[0] != null)
+                //    this.components[0].Card1.Source = this.Resources[this.Game.Players[0].Card1.ToString()] as ImageSource;
             });
             
             
@@ -104,13 +106,15 @@ namespace PokerClient
 
         public void Disconnect() {
             this.client.CloseConnection();
-            this.Hide();
+            //this.Hide();
             this.parentWindow.Show();
-            }
+        }
  
         private void ClosingWindow(object sender, System.ComponentModel.CancelEventArgs e)
         {
             this.client.CloseConnection();
+            //this.parentWindow.Show();
+            //this.Disconnect();
         }
 
         private void createComponentsArray()
@@ -138,16 +142,14 @@ namespace PokerClient
             this.components[1].Card2 = image4;
             
             //TODO add other cards
-            //this.components[2].Card1 = image5;
-            //this.components[2].Card2 = image6;
-            //this.components[3].Card1 = image7;
-            //this.components[3].Card2 = image2;
-            //this.components[4].Card1 = image1;
-            //this.components[4].Card2 = image2;
-            //this.components[5].Card1 = image1;
-            //this.components[5].Card2 = image2;
-            //this.components[6].Card1 = image1;
-            //this.components[6].Card2 = image2;
+            this.components[2].Card1 = image5;
+            this.components[2].Card2 = image6;
+            this.components[3].Card1 = image7;
+            this.components[3].Card2 = image8;
+            this.components[4].Card1 = image9;
+            this.components[4].Card2 = image10;
+            this.components[5].Card1 = image11;
+            this.components[5].Card2 = image12;
 
         }
 
@@ -161,41 +163,49 @@ namespace PokerClient
                 if (Game.Players[i] == null)
                 {
                     name = ""; cash = "";
-                } else {
+                }
+                else
+                {
                     name = Game.Players[i].Name;
                     cash = Game.Players[i].Ammount.ToString();
                 }
-                this.components[i].Namelbl.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, (System.Action)delegate()
-                {
-                    this.components[i].Namelbl.Content = name;
-                });
-                this.components[i].Namelbl.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, (System.Action)delegate()
-                {
-                    this.components[i].Namelbl.Background = Brushes.Transparent;
-                });
-                this.components[i].Cashlbl.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, (System.Action)delegate()
-                {
-                    this.components[i].Cashlbl.Content = cash;
-                });
-            }
-        }
 
-        private void SetLabelText(Label lbl, string text)
-        {
-            lbl.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, (System.Action)delegate() { lbl.Content = text; });
+                this.components[i].Namelbl.Content = name;
+
+                this.components[i].Namelbl.Background = Brushes.Transparent;
+
+                this.components[i].Cashlbl.Content = cash;
+            }
         }
 
         private void markActivePlayer()
         {
             if (Game.ActivePlayer != -1 && Game.Players[Game.ActivePlayer] != null)
             {
-                this.components[Game.ActivePlayer].Namelbl.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, (System.Action)delegate()
-                {
-                    this.components[Game.ActivePlayer].Namelbl.Background = Brushes.RoyalBlue;
-                });
+                 this.components[Game.ActivePlayer].Namelbl.Background = Brushes.RoyalBlue;
             }
         }
-                
+
+        private void updateCards()
+        {
+
+            for (int i = 0; i < PLAYERS; i++)
+            {
+                if (this.Game.Players[i] == null)
+                {
+                    this.components[i].Card1.Visibility = System.Windows.Visibility.Hidden;
+                    this.components[i].Card2.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else
+                {
+                    this.components[i].Card1.Visibility = System.Windows.Visibility.Visible;
+                    this.components[i].Card2.Visibility = System.Windows.Visibility.Visible;
+                    this.components[i].Card1.Source = this.Resources[this.Game.Players[i].Card1.ToString()] as ImageSource;
+                    this.PutLogMessage(this.Game.Players[i].Card1.ToString());
+                    this.components[i].Card2.Source = this.Resources[this.Game.Players[i].Card2.ToString()] as ImageSource;
+                }
+            }
+        }
 
     }
 

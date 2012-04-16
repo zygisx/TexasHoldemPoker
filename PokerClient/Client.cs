@@ -133,7 +133,7 @@ namespace PokerClient
 
         public void WaitForDataReceive()
         {
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[2048];
             serverStream = clientSocket.GetStream();
             serverStream.BeginRead(buffer, 0, buffer.Length, ReadCallback, buffer);
         }

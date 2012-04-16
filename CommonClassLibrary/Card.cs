@@ -7,28 +7,28 @@ namespace CommonClassLibrary
 {
     [Serializable]
     public enum Suit { 
-        NONE, 
-        DIAMONDS, 
-        HEARTS, 
-        CLUBS, 
-        SPADES,
+        None, 
+        Diamonds, 
+        Hearts, 
+        Clubs, 
+        Spades,
     }
     [Serializable]
     public enum Rank {
-        NONE,
-        ACE, 
-        TWO, 
-        THREE, 
-        FOUR, 
-        FIVE, 
-        SIX, 
-        SEVEN, 
-        EIGHT,
-        NINE, 
-        TEN, 
-        JACK, 
-        QUEEN, 
-        KING
+        None,
+        Ace, 
+        Two, 
+        Three, 
+        Four, 
+        Five, 
+        Six, 
+        Seven, 
+        Eight,
+        Nine, 
+        Ten, 
+        Jack, 
+        Queen, 
+        King,
     }
     [Serializable]
     public class Card : IComparable
@@ -52,7 +52,7 @@ namespace CommonClassLibrary
             this._suit = suit;
         }
         public Card()
-            : this(Rank.NONE, Suit.NONE)
+            : this(Rank.None, Suit.None)
         {
         }
 
@@ -73,7 +73,8 @@ namespace CommonClassLibrary
 
         public override string ToString()
         {
-            return this._rank + " " + this._suit;
+            if (this._suit == Suit.None) return "NN";
+            return this._suit.ToString().ElementAt(0) +  this._rank.ToString();
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections;
 
 namespace CommonClassLibrary
 {
@@ -48,12 +49,9 @@ namespace CommonClassLibrary
                 Players[i] = null;
         }
 
-        public void Add(Player player)
+        public void Add(Player player, int seat)
         {
-            int i = 0;
-            while (this.Players[i] != null)
-                i++;
-            this.Players[i] = player;
+            this.Players[seat] = player;
         }
 
         public void Remove(string name)
@@ -70,6 +68,15 @@ namespace CommonClassLibrary
                 i++;
             }
         }
+
+        public void ReverseAllCards()
+        {
+            foreach (Player p in this.players)
+            {
+                if (p != null)
+                    p.ReverseCards();
+            }
+        }
                     
 
 
@@ -83,7 +90,7 @@ namespace CommonClassLibrary
     }
 
     [Serializable]
-    public class PlayersCollection
+    public class PlayersCollection : IEnumerable
     {
         private Player[] players = new Player[8];
 
@@ -98,6 +105,11 @@ namespace CommonClassLibrary
             {
                 players[index] = value;
             }
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            return this.players.GetEnumerator();
         }
     }
 
@@ -119,13 +131,13 @@ namespace CommonClassLibrary
         public Card Card1
         {
             get;
-            private set;
+            set;
         }
 
         public Card Card2
         {
             get;
-            private set;
+            set;
         }
 
 
@@ -136,6 +148,8 @@ namespace CommonClassLibrary
         {
             this.Name = name;
             this.Ammount = ammount;
+            this.Card1 = new Card();
+            this.Card2 = new Card();
         }
 
         public bool Reduce(int ammount)
@@ -163,6 +177,12 @@ namespace CommonClassLibrary
                 return true;
             }
             else return false;
+        }
+
+        public void ReverseCards()
+        {
+            this.Card1 = new Card();
+            this.Card2 = new Card();
         }
             
 

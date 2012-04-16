@@ -90,8 +90,8 @@
         		</TransformGroup>
         	</Rectangle.RenderTransform>
         </Rectangle>
-        <Image Height="43" HorizontalAlignment="Left" Margin="156,61,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" />
-        <Image Height="43" HorizontalAlignment="Left" Margin="117,61,0,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource DThree}" />
+        <Image Height="40.991" HorizontalAlignment="Left" Margin="141,68,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="34" Source="{StaticResource NN}" />
+        <Image Height="43" HorizontalAlignment="Left" Margin="102,67.009,0,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource DThree}" />
         <Image Height="43" HorizontalAlignment="Left" Margin="141,199,0,0" x:Name="image3" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" />
         <Image Height="43" HorizontalAlignment="Left" Margin="102,199,0,0" x:Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" />
         <Image Height="43" HorizontalAlignment="Left" Margin="335,181,0,0" x:Name="tamleCard1" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource HQueen}" Visibility="Hidden" />
@@ -99,6 +99,14 @@
         <Image Height="43" HorizontalAlignment="Right" Margin="0,181,337.5,0" x:Name="tamleCard3" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" Visibility="Hidden" />
         <Image Height="43" Margin="374,181,376.5,0" x:Name="tamleCard4" Stretch="Fill" VerticalAlignment="Top" Source="{StaticResource NN}" Visibility="Hidden" />
         <Image Height="43" Margin="0,181,296,0" x:Name="tamleCard5" Stretch="Fill" VerticalAlignment="Top" Source="{StaticResource NN}" HorizontalAlignment="Right" Width="35" Visibility="Hidden" />
+        <Image Height="43" HorizontalAlignment="Left" Margin="185,0,0,178.997" x:Name="image5" Stretch="Fill" VerticalAlignment="Bottom" Width="35" Source="{StaticResource NN}" />
+        <Image Height="43" HorizontalAlignment="Left" Margin="146,0,0,178.997" x:Name="image6" Stretch="Fill" VerticalAlignment="Bottom" Width="35" Source="{StaticResource NN}" RenderTransformOrigin="0.514,0.535" />
+        <Image Height="43" Margin="385,0,365.5,178.997" x:Name="image7" Stretch="Fill" VerticalAlignment="Bottom" Source="{StaticResource NN}" />
+        <Image Height="43" HorizontalAlignment="Right" Margin="0,0,326.5,178.997" x:Name="image8" Stretch="Fill" VerticalAlignment="Bottom" Width="35" Source="{StaticResource NN}" />
+        <Image Height="43" HorizontalAlignment="Right" Margin="0,199,61.5,0" x:Name="image9" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" />
+        <Image Height="43" HorizontalAlignment="Right" Margin="0,199,22.5,0" x:Name="image10" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" />
+        <Image Height="43" HorizontalAlignment="Right" Margin="0,67.009,128,0" x:Name="image11" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" />
+        <Image Height="43" HorizontalAlignment="Right" Margin="0,64.991,171.5,0" x:Name="image12" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" RenderTransformOrigin="0.543,0.512" />
 		
     </Grid>
 </Window>
