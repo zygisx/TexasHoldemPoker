@@ -53,6 +53,7 @@ namespace PokerClient
 
         public void CloseConnection()
         {
+            clientSocket.GetStream().Close();
             clientSocket.Close();
         }
 

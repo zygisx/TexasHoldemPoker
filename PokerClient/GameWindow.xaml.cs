@@ -95,6 +95,7 @@ namespace PokerClient
         private void Fold(object sender, RoutedEventArgs e)
         {
             Game.ActionMade = CommonClassLibrary.Action.FOLD;
+
             this.client.SendGame();
         }
         private void Raise(object sender, RoutedEventArgs e)
@@ -198,11 +199,18 @@ namespace PokerClient
                 }
                 else
                 {
-                    this.components[i].Card1.Visibility = System.Windows.Visibility.Visible;
-                    this.components[i].Card2.Visibility = System.Windows.Visibility.Visible;
-                    this.components[i].Card1.Source = this.Resources[this.Game.Players[i].Card1.ToString()] as ImageSource;
-                    this.PutLogMessage(this.Game.Players[i].Card1.ToString());
-                    this.components[i].Card2.Source = this.Resources[this.Game.Players[i].Card2.ToString()] as ImageSource;
+                    if (this.Game.Players[i].Card1 != null)
+                    {
+                        this.components[i].Card1.Visibility = System.Windows.Visibility.Visible;
+                        this.components[i].Card1.Source = this.Resources[this.Game.Players[i].Card1.ToString()] as ImageSource;
+                    }
+                    else this.components[i].Card1.Visibility = System.Windows.Visibility.Hidden; // palyer is connected but not playing in current play
+                    if (this.Game.Players[i].Card2 != null)
+                    {
+                        this.components[i].Card2.Visibility = System.Windows.Visibility.Visible;
+                        this.components[i].Card2.Source = this.Resources[this.Game.Players[i].Card2.ToString()] as ImageSource;
+                    }
+                    else this.components[i].Card2.Visibility = System.Windows.Visibility.Hidden;
                 }
             }
         }

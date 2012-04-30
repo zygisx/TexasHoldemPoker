@@ -70,14 +70,14 @@
         <TextBox Height="126.5" HorizontalAlignment="Left" Margin="8,409.5,0,0" x:Name="logText" VerticalAlignment="Top" Width="253" />
         <Label Content="" Height="28" HorizontalAlignment="Left" Margin="89,110,0,0" x:Name="player1" VerticalAlignment="Top" Width="95" />
         <Label Content="" Height="28" HorizontalAlignment="Left" Margin="89,246,0,0" x:Name="player2" VerticalAlignment="Top" Width="95" />
-        <Label Content="" Height="28" HorizontalAlignment="Left" Margin="258,315,0,0" x:Name="player3" VerticalAlignment="Top" Width="95" />
-        <Label Content="" Height="28" HorizontalAlignment="Right" Margin="0,315,219,0" x:Name="player4" VerticalAlignment="Top" Width="95" />
+        <Label Content="" Height="28" HorizontalAlignment="Left" Margin="261,358,0,0" x:Name="player3" VerticalAlignment="Top" Width="95" />
+        <Label Content="" Height="28" HorizontalAlignment="Right" Margin="0,358,220,0" x:Name="player4" VerticalAlignment="Top" Width="95" />
         <Label Content="" Height="26" HorizontalAlignment="Left" Margin="117,280,0,0" x:Name="playerCash2" VerticalAlignment="Top" Width="45" />
-        <Label Content="" Height="26" HorizontalAlignment="Left" Margin="495,0,0,168" x:Name="playerCash4" VerticalAlignment="Bottom" Width="45" />
+        <Label Content="" Height="26" HorizontalAlignment="Left" Margin="495,0,0,125" x:Name="playerCash4" VerticalAlignment="Bottom" Width="45" />
         <Label Content="" Height="26" HorizontalAlignment="Left" Margin="117,144,0,0" x:Name="playerCash1" VerticalAlignment="Top" Width="45" />
-        <Label Content="" Height="26" HorizontalAlignment="Left" Margin="286,349,0,0" x:Name="playerCash3" VerticalAlignment="Top" Width="45" />
-        <Label Content="" Height="28" HorizontalAlignment="Right" Margin="0,246,52,0" x:Name="player5" VerticalAlignment="Top" Width="95" />
-        <Label Content="" Height="26" HorizontalAlignment="Left" Margin="666,0,0,237" x:Name="playerCash5" VerticalAlignment="Bottom" Width="45" />
+        <Label Content="" Height="26" HorizontalAlignment="Left" Margin="285,392,0,0" x:Name="playerCash3" VerticalAlignment="Top" Width="45" />
+        <Label Content="" Height="28" HorizontalAlignment="Right" Margin="0,246,41,0" x:Name="player5" VerticalAlignment="Top" Width="95" />
+        <Label Content="" Height="26" HorizontalAlignment="Left" Margin="673,0,0,237" x:Name="playerCash5" VerticalAlignment="Bottom" Width="45" />
         <Label Content="" Height="28" HorizontalAlignment="Right" Margin="0,110,68,0" x:Name="player6" VerticalAlignment="Top" Width="95" d:LayoutOverrides="VerticalAlignment" />
         <Label Content="" Height="26" HorizontalAlignment="Left" Margin="643,144,0,0" x:Name="playerCash6" VerticalAlignment="Top" Width="45" />
         <Rectangle Fill="#FFE0A117" Margin="156.505,107.991,123.004,225.997" Stroke="Black" RenderTransformOrigin="0.5,0.5" RadiusY="104.506" RadiusX="104.506">
@@ -91,22 +91,22 @@
         	</Rectangle.RenderTransform>
         </Rectangle>
         <Image Height="40.991" HorizontalAlignment="Left" Margin="141,68,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="34" Source="{StaticResource NN}" />
-        <Image Height="43" HorizontalAlignment="Left" Margin="102,67.009,0,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource DThree}" />
+        <Image Height="43" HorizontalAlignment="Left" Margin="102,67.009,0,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" />
         <Image Height="43" HorizontalAlignment="Left" Margin="141,199,0,0" x:Name="image3" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" />
         <Image Height="43" HorizontalAlignment="Left" Margin="102,199,0,0" x:Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" />
-        <Image Height="43" HorizontalAlignment="Left" Margin="335,181,0,0" x:Name="tamleCard1" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource HQueen}" Visibility="Hidden" />
+        <Image Height="43" HorizontalAlignment="Left" Margin="335,181,0,0" x:Name="tamleCard1" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" Visibility="Hidden" />
         <Image Height="43" HorizontalAlignment="Left" Margin="296,181,0,0" x:Name="tamleCard2" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" Visibility="Hidden" />
         <Image Height="43" HorizontalAlignment="Right" Margin="0,181,337.5,0" x:Name="tamleCard3" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" Visibility="Hidden" />
         <Image Height="43" Margin="374,181,376.5,0" x:Name="tamleCard4" Stretch="Fill" VerticalAlignment="Top" Source="{StaticResource NN}" Visibility="Hidden" />
         <Image Height="43" Margin="0,181,296,0" x:Name="tamleCard5" Stretch="Fill" VerticalAlignment="Top" Source="{StaticResource NN}" HorizontalAlignment="Right" Width="35" Visibility="Hidden" />
-        <Image Height="43" HorizontalAlignment="Left" Margin="185,0,0,178.997" x:Name="image5" Stretch="Fill" VerticalAlignment="Bottom" Width="35" Source="{StaticResource NN}" />
-        <Image Height="43" HorizontalAlignment="Left" Margin="146,0,0,178.997" x:Name="image6" Stretch="Fill" VerticalAlignment="Bottom" Width="35" Source="{StaticResource NN}" RenderTransformOrigin="0.514,0.535" />
-        <Image Height="43" Margin="385,0,365.5,178.997" x:Name="image7" Stretch="Fill" VerticalAlignment="Bottom" Source="{StaticResource NN}" />
-        <Image Height="43" HorizontalAlignment="Right" Margin="0,0,326.5,178.997" x:Name="image8" Stretch="Fill" VerticalAlignment="Bottom" Width="35" Source="{StaticResource NN}" />
-        <Image Height="43" HorizontalAlignment="Right" Margin="0,199,61.5,0" x:Name="image9" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" />
-        <Image Height="43" HorizontalAlignment="Right" Margin="0,199,22.5,0" x:Name="image10" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" />
-        <Image Height="43" HorizontalAlignment="Right" Margin="0,67.009,128,0" x:Name="image11" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" />
-        <Image Height="43" HorizontalAlignment="Right" Margin="0,64.991,171.5,0" x:Name="image12" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" RenderTransformOrigin="0.543,0.512" />
+        <Image Height="43" HorizontalAlignment="Left" Margin="306,0,0,185" x:Name="image5" Stretch="Fill" VerticalAlignment="Bottom" Width="35" Source="{StaticResource NN}" Visibility="Hidden"/>
+        <Image Height="43" HorizontalAlignment="Left" Margin="265,0,0,185" x:Name="image6" Stretch="Fill" VerticalAlignment="Bottom" Width="35" Source="{StaticResource NN}" RenderTransformOrigin="0.514,0.535" Visibility="Hidden"/>
+        <Image Height="43" Margin="474,0,271,185" x:Name="image7" Stretch="Fill" VerticalAlignment="Bottom" Source="{StaticResource NN}" Visibility="Hidden"/>
+        <Image Height="43" HorizontalAlignment="Right" Margin="0,0,230,185" x:Name="image8" Stretch="Fill" VerticalAlignment="Bottom" Width="35" Source="{StaticResource NN}" Visibility="Hidden"/>
+        <Image Height="43" HorizontalAlignment="Right" Margin="0,199,92,0" x:Name="image9" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" Visibility="Hidden"/>
+        <Image Height="43" HorizontalAlignment="Right" Margin="0,199,50,0" x:Name="image10" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" Visibility="Hidden"/>
+        <Image Height="43" HorizontalAlignment="Right" Margin="0,65,79,0" x:Name="image11" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" Visibility="Hidden"/>
+        <Image Height="43" HorizontalAlignment="Right" Margin="0,65,119,0" x:Name="image12" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" RenderTransformOrigin="0.543,0.512" Visibility="Hidden"/>
 		
     </Grid>
 </Window>

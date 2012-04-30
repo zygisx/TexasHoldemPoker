@@ -73,7 +73,7 @@ namespace CommonClassLibrary
         {
             foreach (Player p in this.players)
             {
-                if (p != null)
+                if ( p != null && p.Card1 != null)
                     p.ReverseCards();
             }
         }
@@ -148,8 +148,8 @@ namespace CommonClassLibrary
         {
             this.Name = name;
             this.Ammount = ammount;
-            this.Card1 = new Card();
-            this.Card2 = new Card();
+            this.Card1 = null;
+            this.Card2 = null;
         }
 
         public bool Reduce(int ammount)
