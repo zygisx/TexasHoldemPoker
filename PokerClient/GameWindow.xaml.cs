@@ -21,10 +21,12 @@ namespace PokerClient
     public partial class GameWindow : Window
     {
         public const int PLAYERS = 6;
+        public const int CARDS_ON_TABLE = 5;
 
         private Client client;
         private MainWindow parentWindow;
         private PlayersComponents[] components;
+        private Image[] tableCardsImages;
         //private ClientsGame game;
 
         public ClientsGame Game
@@ -42,6 +44,8 @@ namespace PokerClient
 
             // add components to array
             this.createComponentsArray();
+            //
+            this.createCardsArray();
             
             
             client.WaitForDataReceive();
@@ -49,7 +53,6 @@ namespace PokerClient
         }
 
         
-
         public void UpdateGame() {
 
             // invoke to acces ui from  non ui thread
@@ -59,6 +62,9 @@ namespace PokerClient
                 this.updatePlayerLabels();
                 this.markActivePlayer();
                 this.updateCards();
+                
+                //TODO move it to separate method
+                this.infoLabel.Content = this.Game.InfoText;
                 //this.image1.Source = this.Resources["DA"] as ImageSource;
                 //if (this.Game.Players[0] != null)
                 //    this.components[0].Card1.Source = this.Resources[this.Game.Players[0].Card1.ToString()] as ImageSource;
@@ -101,6 +107,7 @@ namespace PokerClient
         private void Raise(object sender, RoutedEventArgs e)
         {
             Game.ActionMade = CommonClassLibrary.Action.RAISE;
+            Game.SetRaiseValue(10); //FIXME
             this.client.SendGame();
         }
 
@@ -141,8 +148,6 @@ namespace PokerClient
             this.components[0].Card2 = image2;
             this.components[1].Card1 = image3;
             this.components[1].Card2 = image4;
-            
-            //TODO add other cards
             this.components[2].Card1 = image5;
             this.components[2].Card2 = image6;
             this.components[3].Card1 = image7;
@@ -154,7 +159,17 @@ namespace PokerClient
 
         }
 
+        private void createCardsArray()
+        {
+            this.tableCardsImages = new Image[CARDS_ON_TABLE];
+            this.tableCardsImages[0] = this.tableCard1;
+            this.tableCardsImages[1] = this.tableCard2;
+            this.tableCardsImages[2] = this.tableCard3;
+            this.tableCardsImages[3] = this.tableCard4;
+            this.tableCardsImages[4] = this.tableCard5;
+        }
 
+       
         // Design things
         private void updatePlayerLabels()
         {
@@ -189,7 +204,7 @@ namespace PokerClient
 
         private void updateCards()
         {
-
+            // players
             for (int i = 0; i < PLAYERS; i++)
             {
                 if (this.Game.Players[i] == null)
@@ -203,6 +218,7 @@ namespace PokerClient
                     {
                         this.components[i].Card1.Visibility = System.Windows.Visibility.Visible;
                         this.components[i].Card1.Source = this.Resources[this.Game.Players[i].Card1.ToString()] as ImageSource;
+                        //this.PutLogMessage("nullas");
                     }
                     else this.components[i].Card1.Visibility = System.Windows.Visibility.Hidden; // palyer is connected but not playing in current play
                     if (this.Game.Players[i].Card2 != null)
@@ -212,6 +228,21 @@ namespace PokerClient
                     }
                     else this.components[i].Card2.Visibility = System.Windows.Visibility.Hidden;
                 }
+            }
+
+            // table
+            int j = 0;
+            while (j < CARDS_ON_TABLE && this.Game.PokerTable.TableCards[j] != null)
+            {
+                this.tableCardsImages[j].Visibility = System.Windows.Visibility.Visible;
+                this.tableCardsImages[j].Source = this.Resources[this.Game.PokerTable.TableCards[j].ToString()] as ImageSource;
+                j++;
+            }
+            j = 0;
+            while (j < CARDS_ON_TABLE && this.Game.PokerTable.TableCards[j] == null)
+            {
+                this.tableCardsImages[j].Visibility = System.Windows.Visibility.Hidden;
+                j++;
             }
         }
 
