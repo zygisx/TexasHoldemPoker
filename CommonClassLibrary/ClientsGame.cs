@@ -42,11 +42,30 @@ namespace CommonClassLibrary
             set;
         }
 
+        public Table PokerTable
+        {
+            get;
+            private set;
+        }
+
+        public string InfoText
+        {
+            get;
+            set;
+        }
+
+        public int RaiseValue
+        {
+            get;
+            private set;
+        }
+
         public ClientsGame()
         {
             players = new PlayersCollection();
             for (int i = 0; i < 8; i++)
                 Players[i] = null;
+            this.PokerTable = new Table();
         }
 
         public void Add(Player player, int seat)
@@ -73,9 +92,25 @@ namespace CommonClassLibrary
         {
             foreach (Player p in this.players)
             {
-                if ( p != null && p.Card1 != null)
+                if ( p != null && p.Card1 != null && p.Card2 != null)
                     p.ReverseCards();
             }
+        }
+
+        public void PlayerFold(int playerSeat)
+        {
+            this.players[playerSeat].Card1 = null;
+            this.players[playerSeat].Card2 = null;
+        }
+
+        public bool SetRaiseValue(int ammount)
+        {
+            if (this.RaiseValue <= ammount)
+            {
+                this.RaiseValue = ammount;
+                return true;
+            }
+            else return false;
         }
                     
 
@@ -140,9 +175,7 @@ namespace CommonClassLibrary
             set;
         }
 
-
-
-        private int raiseValue;
+        
 
         public Player(string name, int ammount)
         {
@@ -168,17 +201,17 @@ namespace CommonClassLibrary
             // return value bool just in case if in future some restrictions will be added
             return true;
         }
-
+        /*
         public bool SetRaiseValue(int ammount)
         {
-            if (this.raiseValue <= ammount)
+            if (this.RaiseValue <= ammount)
             {
-                this.raiseValue = ammount;
+                this.RaiseValue = ammount;
                 return true;
             }
             else return false;
         }
-
+        */
         public void ReverseCards()
         {
             this.Card1 = new Card();
@@ -186,6 +219,83 @@ namespace CommonClassLibrary
         }
             
 
+    }
+
+    [Serializable]
+    public class Table
+    {
+        public const int TABLE_CARDS = 5;
+
+        private TableCards cards = new TableCards();
+
+        public TableCards TableCards
+        {
+            get
+            {
+                return this.cards;
+            }
+            private set
+            {
+                this.cards = value;
+            }
+        }
+
+
+        public Table()
+        {
+            this.Reset();
+        }
+
+        public void Flop(Card c1, Card c2, Card c3)
+        {
+            this.cards[0] = c1;
+            this.cards[1] = c2;
+            this.cards[2] = c3;
+        }
+
+        public void Fourth(Card c)
+        {
+            this.cards[3] = c;
+        }
+
+        public void Fifth(Card c)
+        {
+            this.cards[4] = c;
+        }
+
+
+
+        public void Reset()
+        {
+            for (int i = 0; i < TABLE_CARDS; i++)
+            {
+                this.cards[i] = null;
+            }
+        }
+    }
+
+    [Serializable]
+    public class TableCards : IEnumerable
+    {
+        private Card[] cards = new Card[Table.TABLE_CARDS];
+
+
+        public Card this[int index]
+        {
+            get
+            {
+                return this.cards[index];
+            }
+            set
+            {
+                this.cards[index] = value;
+            }
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            return this.cards.GetEnumerator();
+        }
     }
 
     [Serializable]
