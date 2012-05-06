@@ -100,11 +100,10 @@ namespace PokerClient
 
         public void SendGame()
         {
-            NetworkStream serverStream = clientSocket.GetStream();
-            MemoryStream memStream = new MemoryStream();
             try
             {
-
+                NetworkStream serverStream = clientSocket.GetStream();
+                MemoryStream memStream = new MemoryStream();
                 BinaryFormatter bf = new BinaryFormatter();
                 bf.Serialize(memStream, Window.Game);
 
