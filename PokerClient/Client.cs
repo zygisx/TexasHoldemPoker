@@ -130,6 +130,27 @@ namespace PokerClient
             }
         }
 
+        public void SendGame(GameAction action)
+        {
+            try
+            {
+                NetworkStream serverStream = clientSocket.GetStream();
+                MemoryStream memStream = new MemoryStream();
+                BinaryFormatter bf = new BinaryFormatter();
+                bf.Serialize(memStream, action);
+
+                byte[] buffer = memStream.GetBuffer();
+                serverStream.Write(buffer, 0, buffer.Length);
+                serverStream.Flush();
+
+
+            }
+            catch (Exception ex)
+            {
+                Window.PutLogMessage(ex.ToString());
+            }
+        }
+
         /* deprecated, use only for send players nickname */
         public void SendData(string dataTosend)
         {
@@ -144,7 +165,7 @@ namespace PokerClient
 
         public void WaitForDataReceive()
         {
-            byte[] buffer = new byte[2048];
+            byte[] buffer = new byte[3072];
             serverStream = clientSocket.GetStream();
             serverStream.BeginRead(buffer, 0, buffer.Length, ReadCallback, buffer);
         }

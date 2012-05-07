@@ -10,5 +10,6 @@
         <Label Content="Nick: " Height="31" Margin="12,97,303,0" Name="label3" VerticalAlignment="Top" />
         <TextBox Height="31" HorizontalAlignment="Left" Margin="78,97,0,0" Name="nickTextBox" VerticalAlignment="Top" Width="154" />
         <Button Content="Connect" Height="33" HorizontalAlignment="Left" Margin="266,133,0,0" Name="button1" VerticalAlignment="Top" Width="103" Click="ConnectToServer" />
+        <Label Content="" Height="24" HorizontalAlignment="Left" Margin="22,140,0,0" Name="errorLabel" VerticalAlignment="Top" Width="228" HorizontalContentAlignment="Center" />
     </Grid>
 </Window>

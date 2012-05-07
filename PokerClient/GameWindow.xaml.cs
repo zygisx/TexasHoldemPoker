@@ -46,6 +46,8 @@ namespace PokerClient
             this.createComponentsArray();
             //
             this.createCardsArray();
+
+            this.nameLabel.Content = this.client.Name + " table";
             
             
             client.WaitForDataReceive();
@@ -62,64 +64,86 @@ namespace PokerClient
                 this.updatePlayerLabels();
                 this.markActivePlayer();
                 this.updateCards();
-                
-                //TODO move it to separate method
+
+                // enbable buttons
+                this.raiseButton.Visibility = System.Windows.Visibility.Visible;
+
+
+                this.potLabel.Content = this.Game.Pot.ToString();
                 this.infoLabel.Content = this.Game.InfoText;
+                
+                this.addLogMessage();
 
-                // if active player is current player and it has to call.
+                // if active player is current player
                 if (this.Game.ActivePlayer >= 0 &&
-                    this.Game.Players[this.Game.ActivePlayer].Name == this.client.Name &&
-                    (this.Game.Players[this.Game.ActivePlayer].AmountOnTable < this.Game.Raised))
+                    this.Game.Players[this.Game.ActivePlayer].Name == this.client.Name ) 
                 {
-
-                    this.callInfoLabel.Content = "Value to call: " +
-                        (this.Game.Raised - this.Game.Players[this.Game.ActivePlayer].AmountOnTable);
+                    this.updateCurrentPlayersWindow();
                 }
-                else this.callInfoLabel.Content = "";
-                //this.image1.Source = this.Resources["DA"] as ImageSource;
-                //if (this.Game.Players[0] != null)
-                //    this.components[0].Card1.Source = this.Resources[this.Game.Players[0].Card1.ToString()] as ImageSource;
-            });
-            
-            
+                else 
+				{
+					this.callInfoLabel.Content = "";
+                    this.slider.Visibility = System.Windows.Visibility.Hidden;
+                    this.sliderLbl.Visibility = System.Windows.Visibility.Hidden;
+				}
 
+              
+            });
         }
 
        
 
         public void PutLogMessage(string text)
         {
+            if (string.IsNullOrWhiteSpace(text)) return;
             if (logText.Dispatcher.CheckAccess())
             {
                 // The calling thread owns the dispatcher, and hence the UI element
-                logText.AppendText(text + "\n");
+                //logText.AppendText(text + "\n");
+                logText.Text += text + "\n";
             }
             else
             {
                 // Invokation required
-                logText.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, (System.Action)delegate() { logText.AppendText(text + "\n"); });
+                logText.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, (System.Action)delegate() { logText.Text += text + "\n"; ; });
             }
         }
 
         /* Buttons */
 		private void Check(object sender, System.Windows.RoutedEventArgs e)
         {
+            /*
         	Game.ActionMade = CommonClassLibrary.Action.CHECK;
             this.client.SendGame();
+            */
+            this.client.SendGame(new GameAction(
+                this.client.Name,
+                CommonClassLibrary.Action.CHECK)
+            );
         }
 
         private void Raise(object sender, System.Windows.RoutedEventArgs e)
         {
+            /*
             Game.ActionMade = CommonClassLibrary.Action.RAISE;
             Game.RaiseValue = 10; //FIXME
             this.client.SendGame();
+             */
+            GameAction action = new GameAction(this.client.Name, CommonClassLibrary.Action.RAISE);
+            action.Raised = Convert.ToInt32(this.slider.Value); //FIXME
+            this.client.SendGame(action);
         }
 		
 		private void Fold(object sender, System.Windows.RoutedEventArgs e)
         {
-        	Game.ActionMade = CommonClassLibrary.Action.FOLD;
+            //Game.ActionMade = CommonClassLibrary.Action.FOLD;
 
-            this.client.SendGame();
+            //this.client.SendGame();
+
+            this.client.SendGame(new GameAction(
+                this.client.Name,
+                CommonClassLibrary.Action.FOLD)
+            );
         }
 
         public void Disconnect() {
@@ -197,12 +221,14 @@ namespace PokerClient
                 {
                     name = ""; cash = "";
                     this.components[i].Rect.Visibility = System.Windows.Visibility.Hidden;
+                    this.components[i].Cashlbl.Visibility = System.Windows.Visibility.Hidden;
                 }
                 else
                 {
                     name = Game.Players[i].Name;
                     cash = Game.Players[i].Amount.ToString();
                     this.components[i].Rect.Visibility = System.Windows.Visibility.Visible;
+                    this.components[i].Cashlbl.Visibility = System.Windows.Visibility.Visible;
 
                     // check if playing in current play
                     if (Game.Players[i].Card1 == null)
@@ -215,7 +241,7 @@ namespace PokerClient
 
                 this.components[i].Rect.Fill = Brushes.Transparent;
 
-                this.components[i].Cashlbl.Content = cash;
+                this.components[i].Cashlbl.Content = "Cash: " + cash + "$";
             }
         }
 
@@ -270,33 +296,118 @@ namespace PokerClient
                 j++;
             }
         }
-       /*
+
+        private void updateCurrentPlayersWindow()
+        {
+            this.raiseButton.Visibility = System.Windows.Visibility.Visible;
+
+            // if player has to call
+            if (this.Game.Players[this.Game.ActivePlayer].AmountOnTable < this.Game.Raised)
+            {
+                int valueToCall = this.Game.Raised - this.Game.Players[this.Game.ActivePlayer].AmountOnTable;
+
+                //if palyer has enaugh money to call
+                if (valueToCall < this.Game.Players[this.Game.ActivePlayer].Amount)
+                {
+                    this.callInfoLabel.Content = "Value to call: " + valueToCall;
+                    this.slider.Visibility = System.Windows.Visibility.Visible;
+                    this.slider.Maximum = this.Game.Players[this.Game.ActivePlayer].Amount - valueToCall;
+                    this.slider.Minimum = 10;
+
+                    int minAmount = this.Game.GetMaxRaiseValue(this.Game.Raised);
+                    if (minAmount < this.slider.Maximum)
+                    {
+                        this.slider.Maximum = minAmount;
+                    }
+
+
+                    this.slider.Value = 10; //TODO need const
+                    if (minAmount < 10)
+                    {
+                        this.slider.Visibility = System.Windows.Visibility.Hidden;
+                        this.raiseButton.Visibility = System.Windows.Visibility.Hidden;
+                    }
+                    else
+                    {
+                        this.sliderLbl.Visibility = System.Windows.Visibility.Visible;
+                        this.sliderLbl.Content = "Raise: " + Convert.ToInt32(this.slider.Value).ToString() + "$";
+                    }
+                }
+                //else all in  
+                else
+                {
+                    this.raiseButton.Visibility = System.Windows.Visibility.Hidden;
+                    this.callInfoLabel.Content = "Value to call: " + this.Game.Players[this.Game.ActivePlayer].Amount;
+
+                    //this.slider.Visibility = System.Windows.Visibility.Hidden;
+                    //this.sliderLbl.Visibility = System.Windows.Visibility.Visible;
+                    //this.sliderLbl.Content = "Raise: " + Convert.ToInt32(this.slider.Value).ToString() + "$";
+                    // no slider showing
+
+                    // only call all in is posible
+                }
+            }
+            // player has to check or rise
+            else
+            {
+                this.slider.Visibility = System.Windows.Visibility.Visible;
+
+                this.slider.Maximum = this.Game.Players[this.Game.ActivePlayer].Amount;
+                int minAmount = this.Game.GetMinimumValue();
+                
+                if (minAmount < this.slider.Maximum)
+                {
+                    this.slider.Maximum = minAmount;
+                }
+
+                if (minAmount < 10)
+                {
+                    this.slider.Visibility = System.Windows.Visibility.Hidden;
+                    this.raiseButton.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else
+                {
+                    this.sliderLbl.Visibility = System.Windows.Visibility.Visible;
+                    this.sliderLbl.Content = "Raise: " + Convert.ToInt32(this.slider.Value).ToString() + "$";
+                }
+            }
+        }
+
+        private void SliderValueChange(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            try
+            {
+                this.sliderLbl.Content = "Raise: " + Convert.ToInt32(e.NewValue).ToString() + "$";
+            }
+            catch (Exception) { };
+        }
+       
         #region Code for log message
-        // fields used only for log messages
+        // field used only for log messages
         private bool isWaitingForPlayers = false;
-        private int raised = 0;
 
         private void addLogMessage() {
-            int count = 0;
-            foreach (Player p in this.Game.Players)
-                if (p != null) count++;
-            
-            if (!isWaitingForPlayers)
+            if (this.Game.ActivePlayer >= 0 && this.Game.ActionMade != null)
             {
-                if (count < 2)
+                this.PutLogMessage(this.Game.ActionMade.Name + ": "
+                    + this.Game.ActionMade.GameAct.ToString() + " "
+                    + ((this.Game.ActionMade.GameAct == CommonClassLibrary.Action.RAISE)
+                    ?
+                    this.Game.ActionMade.Raised + "$." : "."));
+                isWaitingForPlayers = false;
+            }
+            else
+            {
+                if (!isWaitingForPlayers)
                 {
-                    this.PutLogMessage("Waiting for players....");
+                    this.PutLogMessage("Waiting for players...");
                     isWaitingForPlayers = true;
                 }
-                else {
-
             }
-
-
-
+            this.logText.ScrollToEnd();
         }
         #endregion
-        */
+        
     }
 
 

@@ -30,7 +30,7 @@ namespace CommonClassLibrary
             set;
         }
 
-        public Action ActionMade
+        public GameAction ActionMade
         {
             get;
             set;
@@ -53,11 +53,23 @@ namespace CommonClassLibrary
             get;
             set;
         }
-
+        /*
         public int RaiseValue
         {
             get;
-            private set;
+            set;
+        }
+        */
+        public int Raised
+        {
+            get;
+            set;
+        }
+
+        public int Pot
+        {
+            get;
+            set;
         }
 
         public ClientsGame()
@@ -103,7 +115,49 @@ namespace CommonClassLibrary
             this.players[playerSeat].Card2 = null;
         }
 
-        public bool SetRaiseValue(int ammount)
+        public void NewStageReset()
+        {
+            foreach (Player p in this.players)
+            {
+                if (p != null)
+                    p.AmountOnTable = 0;
+            }
+            this.Raised = 0;
+        }
+
+        public int GetMinimumValue()
+        {
+
+            int min = Int32.MaxValue;
+            foreach (Player p in this.players)
+            {
+                if (p != null && p.Card1 != null && p.Amount < min)
+                {
+                    min = p.Amount;
+                }
+            }
+            return min;
+        }
+
+        public int GetMaxRaiseValue(int raised) {
+            int min = Int32.MaxValue;
+            foreach (Player p in this.players)
+            {
+                if (p != null && p.Card1 != null)
+                {
+                    int valueToCall = raised - p.AmountOnTable;
+                    if ((p.Amount - valueToCall) < min)
+                    {
+                        min = p.Amount - valueToCall;
+                    }
+                }
+            }
+            return min;
+        }
+
+
+        /*
+        public bool AddRaiseValue(int ammount)
         {
             if (this.RaiseValue <= ammount)
             {
@@ -112,9 +166,7 @@ namespace CommonClassLibrary
             }
             else return false;
         }
-                    
-
-
+        */
         /*
         public override string ToString()
         {
@@ -122,6 +174,32 @@ namespace CommonClassLibrary
         }
         */
 
+    }
+
+    [Serializable]
+    public class GameAction
+    {
+        public string Name
+        {
+            get;
+            set;
+        }
+        public Action GameAct
+        {
+            get;
+            set;
+        }
+        public int Raised
+        {
+            get;
+            set;
+        }
+
+        public GameAction(string name, Action action)
+        {
+            this.Name = name;
+            this.GameAct = action;
+        }
     }
 
     [Serializable]
@@ -157,7 +235,7 @@ namespace CommonClassLibrary
             private set;
         }
 
-        public int Ammount
+        public int Amount
         {
             get;
             private set;
@@ -180,16 +258,23 @@ namespace CommonClassLibrary
         public Player(string name, int ammount)
         {
             this.Name = name;
-            this.Ammount = ammount;
+            this.Amount = ammount;
             this.Card1 = null;
             this.Card2 = null;
         }
 
-        public bool Reduce(int ammount)
+        public int AmountOnTable
         {
-            if (this.Ammount >= ammount)
+            get;
+            set;
+        }
+
+        public bool Reduce(int amount)
+        {
+            if (this.Amount >= amount)
             {
-                this.Ammount -= ammount;
+                this.Amount -= amount;
+                this.AmountOnTable += amount;
                 return true;
             }
             else return false;
@@ -197,7 +282,7 @@ namespace CommonClassLibrary
 
         public bool Increase(int ammount)
         {
-            this.Ammount += ammount;
+            this.Amount += ammount;
             // return value bool just in case if in future some restrictions will be added
             return true;
         }
@@ -253,12 +338,12 @@ namespace CommonClassLibrary
             this.cards[2] = c3;
         }
 
-        public void Fourth(Card c)
+        public void Turn(Card c)
         {
             this.cards[3] = c;
         }
 
-        public void Fifth(Card c)
+        public void River(Card c)
         {
             this.cards[4] = c;
         }
