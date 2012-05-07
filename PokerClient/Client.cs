@@ -27,6 +27,13 @@ namespace PokerClient
             private set;
         }
 
+        public string Name 
+        {
+            get;
+            private set;
+        }
+
+
         public GameWindow Window
         {
             get;
@@ -45,7 +52,11 @@ namespace PokerClient
             allDone.Reset();
             this.SendData(nick);
             this.WaitForNickConfirm();
-            if (this.ConnectionState == State.OK) return true;
+            if (this.ConnectionState == State.OK)
+            {
+                this.Name = nick;
+                return true;
+            }
             else return false;
 
             // Wait for game data
@@ -163,7 +174,7 @@ namespace PokerClient
                 // Game stuff
                 Window.Game = game;
                 Window.UpdateGame();
-                Window.PutLogMessage(game.ActionMade.ToString());
+                
                 
 
                 // and again wait for game data
