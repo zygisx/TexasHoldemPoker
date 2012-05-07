@@ -65,6 +65,17 @@ namespace PokerClient
                 
                 //TODO move it to separate method
                 this.infoLabel.Content = this.Game.InfoText;
+
+                // if active player is current player and it has to call.
+                if (this.Game.ActivePlayer >= 0 &&
+                    this.Game.Players[this.Game.ActivePlayer].Name == this.client.Name &&
+                    (this.Game.Players[this.Game.ActivePlayer].AmountOnTable < this.Game.Raised))
+                {
+
+                    this.callInfoLabel.Content = "Value to call: " +
+                        (this.Game.Raised - this.Game.Players[this.Game.ActivePlayer].AmountOnTable);
+                }
+                else this.callInfoLabel.Content = "";
                 //this.image1.Source = this.Resources["DA"] as ImageSource;
                 //if (this.Game.Players[0] != null)
                 //    this.components[0].Card1.Source = this.Resources[this.Game.Players[0].Card1.ToString()] as ImageSource;
@@ -91,26 +102,25 @@ namespace PokerClient
         }
 
         /* Buttons */
-        private void Check(object sender, RoutedEventArgs e)
+		private void Check(object sender, System.Windows.RoutedEventArgs e)
         {
-            Game.ActionMade = CommonClassLibrary.Action.CHECK;
-            this.client.SendGame();
-          
-        }
-
-        private void Fold(object sender, RoutedEventArgs e)
-        {
-            Game.ActionMade = CommonClassLibrary.Action.FOLD;
-
+        	Game.ActionMade = CommonClassLibrary.Action.CHECK;
             this.client.SendGame();
         }
-        private void Raise(object sender, RoutedEventArgs e)
+
+        private void Raise(object sender, System.Windows.RoutedEventArgs e)
         {
             Game.ActionMade = CommonClassLibrary.Action.RAISE;
-            Game.SetRaiseValue(10); //FIXME
+            Game.RaiseValue = 10; //FIXME
             this.client.SendGame();
         }
+		
+		private void Fold(object sender, System.Windows.RoutedEventArgs e)
+        {
+        	Game.ActionMade = CommonClassLibrary.Action.FOLD;
 
+            this.client.SendGame();
+        }
 
         public void Disconnect() {
             this.client.CloseConnection();
@@ -157,6 +167,13 @@ namespace PokerClient
             this.components[5].Card1 = image11;
             this.components[5].Card2 = image12;
 
+            this.components[0].Rect = rect1;
+            this.components[1].Rect = rect2;
+            this.components[2].Rect = rect3;
+            this.components[3].Rect = rect4;
+            this.components[4].Rect = rect5;
+            this.components[5].Rect = rect6;
+
         }
 
         private void createCardsArray()
@@ -179,16 +196,24 @@ namespace PokerClient
                 if (Game.Players[i] == null)
                 {
                     name = ""; cash = "";
+                    this.components[i].Rect.Visibility = System.Windows.Visibility.Hidden;
                 }
                 else
                 {
                     name = Game.Players[i].Name;
-                    cash = Game.Players[i].Ammount.ToString();
+                    cash = Game.Players[i].Amount.ToString();
+                    this.components[i].Rect.Visibility = System.Windows.Visibility.Visible;
+
+                    // check if playing in current play
+                    if (Game.Players[i].Card1 == null)
+                        this.components[i].Rect.StrokeThickness = 2;
+                    else
+                        this.components[i].Rect.StrokeThickness = 5;
                 }
 
                 this.components[i].Namelbl.Content = name;
 
-                this.components[i].Namelbl.Background = Brushes.Transparent;
+                this.components[i].Rect.Fill = Brushes.Transparent;
 
                 this.components[i].Cashlbl.Content = cash;
             }
@@ -198,7 +223,7 @@ namespace PokerClient
         {
             if (Game.ActivePlayer != -1 && Game.Players[Game.ActivePlayer] != null)
             {
-                 this.components[Game.ActivePlayer].Namelbl.Background = Brushes.RoyalBlue;
+                this.components[Game.ActivePlayer].Rect.Fill = Brushes.SeaGreen;
             }
         }
 
@@ -245,7 +270,33 @@ namespace PokerClient
                 j++;
             }
         }
+       /*
+        #region Code for log message
+        // fields used only for log messages
+        private bool isWaitingForPlayers = false;
+        private int raised = 0;
 
+        private void addLogMessage() {
+            int count = 0;
+            foreach (Player p in this.Game.Players)
+                if (p != null) count++;
+            
+            if (!isWaitingForPlayers)
+            {
+                if (count < 2)
+                {
+                    this.PutLogMessage("Waiting for players....");
+                    isWaitingForPlayers = true;
+                }
+                else {
+
+            }
+
+
+
+        }
+        #endregion
+        */
     }
 
 
@@ -270,6 +321,12 @@ namespace PokerClient
         }
 
         public Image Card2
+        {
+            get;
+            set;
+        }
+
+        public Rectangle Rect
         {
             get;
             set;

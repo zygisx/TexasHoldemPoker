@@ -61,26 +61,48 @@
         <BitmapImage x:Key="SJack" UriSource="/PokerClient;component/Images/SpadeJack.png" />
         <BitmapImage x:Key="SQueen" UriSource="/PokerClient;component/Images/SpadeQueen.png" />
         <BitmapImage x:Key="SKing" UriSource="/PokerClient;component/Images/SpadeKing.png" />
+        <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+        	<Setter Property="Template">
+        		<Setter.Value>
+        			<ControlTemplate TargetType="{x:Type Button}">
+        				<Grid>
+        					<Rectangle x:Name="rectangle" Fill="#FF238D0D" RadiusY="19.5" RadiusX="19.5" Stroke="#FF102710" StrokeThickness="5"/>
+        					<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+        				</Grid>
+        				<ControlTemplate.Triggers>
+        					<Trigger Property="IsFocused" Value="True">
+        						<Setter Property="Fill" TargetName="rectangle" Value="#FF238D0D"/>
+        					</Trigger>
+        					<Trigger Property="IsDefaulted" Value="True"/>
+        					<Trigger Property="IsMouseOver" Value="True">
+        						<Setter Property="Fill" TargetName="rectangle" Value="#FF36C01A"/>
+        					</Trigger>
+        					<Trigger Property="IsPressed" Value="True">
+        						<Setter Property="Fill" TargetName="rectangle" Value="#FF3CFF13"/>
+        					</Trigger>
+        					<Trigger Property="IsEnabled" Value="False"/>
+        				</ControlTemplate.Triggers>
+        			</ControlTemplate>
+        		</Setter.Value>
+        	</Setter>
+        </Style>
 
     </Window.Resources>
     <Grid Background="#FF055403">
-        <Button Content="Fold" Height="46" HorizontalAlignment="Right" Margin="0,490,8,0" x:Name="foldButton" VerticalAlignment="Top" Width="105" Click="Fold" />
-        <Button Content="Check" Height="46" HorizontalAlignment="Left" Margin="563.5,490,0,0" x:Name="checkButton" VerticalAlignment="Top" Width="105" Click="Check" />
-        <Button Content="Raise" Height="46" HorizontalAlignment="Left" Margin="454.5,490,0,0" x:Name="raiseButton" VerticalAlignment="Top" Width="105" Click="Raise" />
-        <TextBox Height="126.5" HorizontalAlignment="Left" Margin="8,409.5,0,0" x:Name="logText" VerticalAlignment="Top" Width="253" />
-        <Label Content="" Height="28" HorizontalAlignment="Left" Margin="89,110,0,0" x:Name="player1" VerticalAlignment="Top" Width="95" />
-        <Label Content="" Height="28" HorizontalAlignment="Left" Margin="89,246,0,0" x:Name="player2" VerticalAlignment="Top" Width="95" />
-        <Label Content="" Height="28" HorizontalAlignment="Left" Margin="261,358,0,0" x:Name="player3" VerticalAlignment="Top" Width="95" />
-        <Label Content="" Height="28" HorizontalAlignment="Right" Margin="0,358,219,0" x:Name="player4" VerticalAlignment="Top" Width="95" />
-        <Label Content="" Height="26" HorizontalAlignment="Left" Margin="117,280,0,0" x:Name="playerCash2" VerticalAlignment="Top" Width="45" />
-        <Label Content="" Height="26" HorizontalAlignment="Left" Margin="495,0,0,125" x:Name="playerCash4" VerticalAlignment="Bottom" Width="45" />
-        <Label Content="" Height="26" HorizontalAlignment="Left" Margin="117,144,0,0" x:Name="playerCash1" VerticalAlignment="Top" Width="45" />
-        <Label Content="" Height="26" HorizontalAlignment="Left" Margin="285,392,0,0" x:Name="playerCash3" VerticalAlignment="Top" Width="45" />
-        <Label Content="" Height="28" HorizontalAlignment="Right" Margin="0,246,41,0" x:Name="player5" VerticalAlignment="Top" Width="95" />
-        <Label Content="" Height="26" HorizontalAlignment="Left" Margin="673,0,0,237" x:Name="playerCash5" VerticalAlignment="Bottom" Width="45" />
-        <Label Content="" Height="28" HorizontalAlignment="Right" Margin="0,110,68,0" x:Name="player6" VerticalAlignment="Top" Width="95" d:LayoutOverrides="VerticalAlignment" />
-        <Label Content="" Height="26" HorizontalAlignment="Left" Margin="643,144,0,0" x:Name="playerCash6" VerticalAlignment="Top" Width="45" />
-        <Rectangle Fill="#FFE0A117" Margin="156.505,107.991,123.004,225.997" Stroke="Black" RenderTransformOrigin="0.5,0.5" RadiusY="104.506" RadiusX="104.506">
+        <TextBox Height="189.5" HorizontalAlignment="Left" Margin="8,346.5,0,0" x:Name="logText" VerticalAlignment="Top" Width="221" />
+        <Label Content="" Height="28" HorizontalAlignment="Left" Margin="83,127,0,0" x:Name="player1" VerticalAlignment="Top" Width="107" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+        <Label Content="" Height="28" HorizontalAlignment="Left" Margin="83,258,0,0" x:Name="player2" VerticalAlignment="Top" Width="107" HorizontalContentAlignment="Center" />
+        <Label Content="" Height="28" HorizontalAlignment="Left" Margin="249,358,0,0" x:Name="player3" VerticalAlignment="Top" Width="107" />
+        <Label Content="" Height="28" HorizontalAlignment="Right" Margin="0,358,219,0" x:Name="player4" VerticalAlignment="Top" Width="102" />
+        <Label Content="" Height="26" HorizontalAlignment="Left" Margin="109,288,0,0" x:Name="playerCash2" VerticalAlignment="Top" Width="57.005" VerticalContentAlignment="Center" />
+        <Label Content="" Height="26" HorizontalAlignment="Left" Margin="474,0,0,125" x:Name="playerCash4" VerticalAlignment="Bottom" Width="66" />
+        <Label Content="" Height="26" HorizontalAlignment="Right" Margin="0,159,604,0" x:Name="playerCash1" VerticalAlignment="Top" Width="66" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+        <Label Content="" Height="26" HorizontalAlignment="Left" Margin="265,392,0,0" x:Name="playerCash3" VerticalAlignment="Top" Width="65" />
+        <Label Content="" Height="28" HorizontalAlignment="Right" Margin="0,246,22,0" x:Name="player5" VerticalAlignment="Top" Width="106" />
+        <Label Content="" Height="26" HorizontalAlignment="Left" Margin="675,0,0,239" x:Name="playerCash5" VerticalAlignment="Bottom" Width="65" />
+        <Label Content="" Height="28" HorizontalAlignment="Right" Margin="0,110,40,0" x:Name="player6" VerticalAlignment="Top" Width="106" d:LayoutOverrides="VerticalAlignment" />
+        <Label Content="" Height="26" HorizontalAlignment="Left" Margin="652,143,0,0" x:Name="playerCash6" VerticalAlignment="Top" Width="73" />
+        <Rectangle Fill="#FFE0A117" Margin="156.505,107.991,123.004,225.997" Stroke="Black" RenderTransformOrigin="0.5,0.5" RadiusY="104.506" RadiusX="104.506" Panel.ZIndex="-2">
         	<Rectangle.RenderTransform>
         		<TransformGroup>
         			<ScaleTransform/>
@@ -90,10 +112,11 @@
         		</TransformGroup>
         	</Rectangle.RenderTransform>
         </Rectangle>
-        <Image Height="40.991" HorizontalAlignment="Left" Margin="141,68,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="34" Source="{StaticResource NN}" />
-        <Image Height="43" HorizontalAlignment="Left" Margin="102,67.009,0,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" />
-        <Image Height="43" HorizontalAlignment="Left" Margin="141,199,0,0" x:Name="image3" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" />
-        <Image Height="43" HorizontalAlignment="Left" Margin="102,199,0,0" x:Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" />
+        <Image Height="40.991" HorizontalAlignment="Right" Margin="0,85,646,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="34" Source="{StaticResource NN}" />
+        <Image Height="40.991" HorizontalAlignment="Right" Margin="0,85,607,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="34" Source="{StaticResource NN}" />
+        
+        <Image HorizontalAlignment="Left" Margin="139,215,0,0" x:Name="image3" Stretch="Fill" Width="35" Source="{StaticResource NN}" Height="43" VerticalAlignment="Top" />
+        <Image HorizontalAlignment="Left" Margin="98,215,0,0" x:Name="image4" Stretch="Fill" Width="35" Source="{StaticResource NN}" Height="43" VerticalAlignment="Top" />
         <Image Height="43" HorizontalAlignment="Left" Margin="335,181,0,0" x:Name="tableCard2" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" Visibility="Hidden" />
         <Image Height="43" HorizontalAlignment="Left" Margin="295,181,0,0" x:Name="tableCard1" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" Visibility="Hidden" />
         <Image Height="43" HorizontalAlignment="Left" Margin="376,181,0,0" Name="tableCard3" Source="{StaticResource NN}" Stretch="Fill" VerticalAlignment="Top" Visibility="Hidden" Width="35" />
@@ -103,10 +126,20 @@
         <Image Height="43" HorizontalAlignment="Left" Margin="265,0,0,185" x:Name="image6" Stretch="Fill" VerticalAlignment="Bottom" Width="35" Source="{StaticResource NN}" RenderTransformOrigin="0.514,0.535" Visibility="Hidden"/>
         <Image Height="43" Margin="474,0,271,185" x:Name="image7" Stretch="Fill" VerticalAlignment="Bottom" Source="{StaticResource NN}" Visibility="Hidden"/>
         <Image Height="43" HorizontalAlignment="Right" Margin="0,0,230,185" x:Name="image8" Stretch="Fill" VerticalAlignment="Bottom" Width="35" Source="{StaticResource NN}" Visibility="Hidden"/>
-        <Image Height="43" HorizontalAlignment="Right" Margin="0,199,92,0" x:Name="image9" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" Visibility="Hidden"/>
-        <Image Height="43" HorizontalAlignment="Right" Margin="0,199,50,0" x:Name="image10" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" Visibility="Hidden"/>
-        <Image Height="43" HorizontalAlignment="Right" Margin="0,65,79,0" x:Name="image11" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" Visibility="Hidden"/>
-        <Image Height="43" HorizontalAlignment="Right" Margin="0,65,119,0" x:Name="image12" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" RenderTransformOrigin="0.543,0.512" Visibility="Hidden"/>
+        <Image Height="43" HorizontalAlignment="Right" Margin="0,199,79,0" x:Name="image9" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" Visibility="Hidden"/>
+        <Image Height="43" HorizontalAlignment="Right" Margin="0,199,39,0" x:Name="image10" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" Visibility="Hidden"/>
+        <Image Height="43" HorizontalAlignment="Right" Margin="0,65,51,0" x:Name="image11" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" Visibility="Hidden"/>
+        <Image Height="43" HorizontalAlignment="Right" Margin="0,65,92,0" x:Name="image12" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="{StaticResource NN}" RenderTransformOrigin="0.543,0.512" Visibility="Hidden"/>
         <Label Height="26" HorizontalAlignment="Left" Margin="274,144,0,0" Name="infoLabel" VerticalAlignment="Top" Width="254" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+        <Label Content="" Height="30" HorizontalAlignment="Left" Margin="439,440,0,0" Name="callInfoLabel" VerticalAlignment="Top" Width="301" />
+        <Rectangle Name="rect1" Fill="#00F4F4F5" HorizontalAlignment="Left" Height="105" Margin="83,80,0,0" Stroke="#FF102710" VerticalAlignment="Top" Width="107" RadiusY="19.5" RadiusX="19.5" Panel.ZIndex="-1" StrokeThickness="5"/>
+        <Rectangle Name="rect2" Fill="#00F4F4F5" HorizontalAlignment="Left" Height="105" Margin="83,209,0,229" Stroke="#FF102710" Width="107" RadiusY="19.5" RadiusX="19.5" Panel.ZIndex="-1" StrokeThickness="5"/>
+        <Rectangle x:Name="rect3" Fill="#00F4F4F5" HorizontalAlignment="Left" Margin="249,0,0,125" Stroke="#FF102710" Width="107" RadiusY="19.5" RadiusX="19.5" Panel.ZIndex="-1" StrokeThickness="5" Height="105" VerticalAlignment="Bottom"/>
+        <Rectangle Fill="#00F4F4F5" Height="105" HorizontalAlignment="Left" Margin="458,0,0,125" Name="rect4" Panel.ZIndex="-1" RadiusX="19.5" RadiusY="19.5" Stroke="#FF102710" StrokeThickness="5" VerticalAlignment="Bottom" Width="107" />
+        <Rectangle Fill="#00F4F4F5" Height="105" HorizontalAlignment="Left" Margin="652,0,0,239" Name="rect5" Panel.ZIndex="-1" RadiusX="19.5" RadiusY="19.5" Stroke="#FF102710" StrokeThickness="5" VerticalAlignment="Bottom" Width="107" />
+        <Rectangle Fill="#00F4F4F5" Height="105" HorizontalAlignment="Left" Margin="633,65,0,374" Name="rect6" Panel.ZIndex="-1" RadiusX="19.5" RadiusY="19.5" Stroke="#FF102710" StrokeThickness="5" Width="107" />
+        <Button Name="foldButton" Content="Fold" HorizontalAlignment="Right" Height="56" Margin="0,0,8,8" Style="{DynamicResource ButtonStyle1}" VerticalAlignment="Bottom" Width="149" FontSize="24" FontFamily="Times New Roman" Click="Fold"/>
+        <Button x:Name="checkButt" Content="Check/Call" HorizontalAlignment="Right" Height="56" Margin="0,0,162.5,8" Style="{DynamicResource ButtonStyle1}" VerticalAlignment="Bottom" Width="149" FontSize="24" FontFamily="Times New Roman" Click="Check"/>
+        <Button x:Name="raiseButton" Content="Raise" Height="56" Margin="321,0,315.5,8" Style="{DynamicResource ButtonStyle1}" VerticalAlignment="Bottom" FontSize="24" FontFamily="Times New Roman" Click="Raise"/>
     </Grid>
 </Window>
